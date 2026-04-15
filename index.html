@@ -1392,7 +1392,7 @@
               <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
               <div>
                 <p class="contact-item-label">Telefon</p>
-                <a href="tel:+49000000000" class="contact-item-value" style="color:inherit;text-decoration:none;">+49 (0) 000 000 000</a>
+                <a href="tel:+491735252175" class="contact-item-value" style="color:inherit;text-decoration:none;">+49 (0) 173 5252175</a>
               </div>
             </div>
             <div class="contact-item" role="listitem">
@@ -1406,7 +1406,7 @@
               <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
               <div>
                 <p class="contact-item-label">Öffnungszeiten</p>
-                <p class="contact-item-value">Mo–Fr 07:30–18:00 Uhr</p>
+                <p class="contact-item-value">Mo–So 08:00–24:00 Uhr</p>
               </div>
             </div>
           </div>
@@ -1468,6 +1468,10 @@
           </a>
           <p>Professioneller Windschutzscheibenservice –
           zertifiziert, zuverlässig und mit Garantie für alle Fahrzeugklassen.</p>
+          <p style="font-size:0.8rem;color:var(--gray-600);margin-top:.5rem;line-height:1.6;">
+            Waldfriedstraße 3a · 83024 Rosenheim<br>
+            Tel: <a href="tel:+491735252175" style="color:inherit;text-decoration:none;">+49 (0) 173 5252175</a>
+          </p>
         </div>
         <div>
           <p class="footer-col-title">Leistungen</p>
@@ -1485,17 +1489,16 @@
             <li><a href="#why">Über uns</a></li>
             <li><a href="#testimonials">Bewertungen</a></li>
             <li><a href="#contact">Kontakt</a></li>
-            <li><a href="#">Impressum</a></li>
-            <li><a href="#">Datenschutz</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">&copy; 2026 Schwarz Autoglas. Alle Rechte vorbehalten.</p>
         <div class="footer-legal">
-          <a href="#">Impressum</a>
-          <a href="#">Datenschutz</a>
-          <a href="#">AGB</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
         </div>
       </div>
     </div>
@@ -1569,6 +1572,52 @@
       btn.style.opacity = '0.6';
       btn.style.cursor = 'default';
     });
+  </script>
+
+  <!-- ── SEO: LocalBusiness Schema ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoRepair",
+    "name": "Schwarz Autoglas",
+    "url": "https://www.schwarz-autoglas.de/",
+    "logo": "https://www.schwarz-autoglas.de/public/images/logo.png",
+    "description": "Professioneller Windschutzscheibenservice – Austausch, Reparatur und ADAS-Kalibrierung für alle Fahrzeugklassen.",
+    "telephone": "+491735252175",
+    "email": "info@schwarz-autoglas.de",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Waldfriedstraße 3a",
+      "addressLocality": "Rosenheim",
+      "postalCode": "83024",
+      "addressCountry": "DE"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 47.87385686533657,
+      "longitude": 12.1098726
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "08:00",
+        "closes": "24:00"
+      }
+    ],
+    "priceRange": "€€",
+    "currenciesAccepted": "EUR",
+    "paymentAccepted": "Cash, Credit Card, EC-Card",
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 47.87385686533657,
+        "longitude": 12.1098726
+      },
+      "geoRadius": "60000"
+    }
+  }
   </script>
 </body>
 </html>
