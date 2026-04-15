@@ -147,12 +147,13 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(8,8,8,0.35) 0%,
-        rgba(8,8,8,0.2) 40%,
-        rgba(8,8,8,0.65) 80%,
+        rgba(8,8,8,0.45) 0%,
+        rgba(8,8,8,0.3) 40%,
+        rgba(8,8,8,0.75) 80%,
         rgba(8,8,8,1) 100%
       );
       z-index: 1;
+      transition: background 0.5s ease;
     }
 
     .hero-content {
@@ -1460,6 +1461,22 @@
   </footer>
 
   <script>
+    // ── Hero video overlay fade
+    const heroVideo = document.querySelector('.hero-video');
+    const heroOverlay = document.querySelector('.hero-overlay');
+
+    if (heroVideo && heroOverlay) {
+      heroVideo.addEventListener('timeupdate', () => {
+        if (!heroVideo.duration) return;
+        const remaining = heroVideo.duration - heroVideo.currentTime;
+        if (remaining < 2) {
+          heroOverlay.style.background = 'rgba(8,8,8,0.85)';
+        } else {
+          heroOverlay.style.background = '';
+        }
+      });
+    }
+
     // ── Navbar scroll effect
     const navbar = document.getElementById('navbar');
     const onScroll = () => {
