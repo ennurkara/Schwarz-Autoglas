@@ -1576,14 +1576,50 @@
       link.addEventListener('click', closeMenu);
     });
 
-    // ── Form submission (placeholder)
-    document.querySelector('.contact-form').addEventListener('submit', (e) => {
+    // ── Form submission via Netlify Function
+    document.querySelector('.contact-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = e.target.querySelector('button[type="submit"]');
-      btn.textContent = 'Anfrage gesendet';
+      const originalHTML = btn.innerHTML;
+
+      btn.textContent = 'Wird gesendet …';
       btn.disabled = true;
-      btn.style.opacity = '0.6';
       btn.style.cursor = 'default';
+
+      const formData = {
+        name: e.target.name.value.trim(),
+        phone: e.target.phone.value.trim(),
+        email: e.target.email.value.trim(),
+        car: e.target.car.value.trim(),
+        service: e.target.service.value,
+        message: e.target.message.value.trim(),
+      };
+
+      try {
+        const res = await fetch('/.netlify/functions/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        if (res.ok) {
+          btn.textContent = 'Anfrage gesendet ✓';
+          btn.style.opacity = '0.6';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+        btn.style.cursor = '';
+        btn.style.opacity = '';
+        btn.style.background = '#8b2020';
+        btn.textContent = 'Fehler – bitte erneut versuchen';
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.background = '';
+        }, 4000);
+      }
     });
   </script>
 
