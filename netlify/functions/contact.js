@@ -34,6 +34,22 @@ exports.handler = async (event) => {
     };
   }
 
+  const sanitize = (str) => String(str || '').replace(/[\r\n]/g, ' ').trim();
+
+  const safeName = sanitize(name);
+  const safeEmail = sanitize(email).slice(0, 254);
+  const safePhone = sanitize(phone);
+  const safeCar = sanitize(car);
+  const safeMessage = sanitize(message);
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safeEmail)) {
+    return {
+      statusCode: 400,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Ungültige E-Mail-Adresse' }),
+    };
+  }
+
   const transporter = nodemailer.createTransport({
     host: process.env.STRATO_HOST,
     port: parseInt(process.env.STRATO_PORT, 10),
@@ -49,19 +65,19 @@ exports.handler = async (event) => {
   const mailOptions = {
     from: process.env.STRATO_USER,
     to: process.env.CONTACT_RECIPIENT,
-    replyTo: email,
-    subject: `Neue Anfrage: ${name} – ${serviceLabel}`,
+    replyTo: safeEmail,
+    subject: `Neue Anfrage: ${safeName} – ${serviceLabel}`,
     text: [
       'Neue Kontaktanfrage über schwarz-autoglas.de',
       '',
-      `Name:     ${name}`,
-      `Telefon:  ${phone}`,
-      `E-Mail:   ${email}`,
-      `Fahrzeug: ${car || 'Nicht angegeben'}`,
+      `Name:     ${safeName}`,
+      `Telefon:  ${safePhone}`,
+      `E-Mail:   ${safeEmail}`,
+      `Fahrzeug: ${safeCar || 'Nicht angegeben'}`,
       `Leistung: ${serviceLabel}`,
       '',
       'Nachricht:',
-      message || '(keine Nachricht)',
+      safeMessage || '(keine Nachricht)',
     ].join('\n'),
   };
 
