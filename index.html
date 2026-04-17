@@ -1416,6 +1416,32 @@
       .service-area-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── CATEGORY BADGE ── */
+    .category-badge { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 4px; }
+    .category-ratgeber { background: rgba(200,169,110,.15); color: var(--accent); }
+    .category-lokal { background: rgba(59,130,246,.15); color: #60a5fa; }
+    .category-saisonal { background: rgba(34,197,94,.15); color: #4ade80; }
+    .category-news { background: rgba(170,170,170,.15); color: var(--gray-300); }
+
+    /* ── AKTUELLES (blog teaser) ── */
+    .aktuelles { padding: 5rem 0; }
+    .aktuelles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .aktuelles-card { background: var(--gray-950); border: 1px solid var(--gray-800); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
+    .aktuelles-card:hover { border-color: var(--gray-600); transform: translateY(-2px); }
+    .aktuelles-card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: .5rem; }
+    .aktuelles-card-body h3 { font-size: .95rem; font-weight: 600; line-height: 1.4; }
+    .aktuelles-card-body h3 a:hover { color: var(--accent); }
+    .aktuelles-card-excerpt { font-size: .85rem; color: var(--gray-300); line-height: 1.6; flex: 1; }
+    .aktuelles-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: .75rem; border-top: 1px solid var(--gray-800); }
+    .aktuelles-card-date { font-size: .75rem; color: var(--gray-400); }
+    .aktuelles-read-more { font-size: .8rem; font-weight: 600; color: var(--accent); }
+    .aktuelles-read-more:hover { color: var(--accent-dark); }
+    .aktuelles-footer { text-align: center; margin-top: 2rem; }
+    .aktuelles-all-link { display: inline-flex; align-items: center; gap: .4rem; color: var(--accent); font-size: .9rem; font-weight: 600; transition: gap .2s; }
+    .aktuelles-all-link:hover { gap: .65rem; }
+    @media (max-width: 900px) { .aktuelles-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .aktuelles-grid { grid-template-columns: 1fr; } }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
@@ -1826,6 +1852,20 @@
     </div>
   </section>
 
+  <!-- ── AKTUELLES ── -->
+  <section class="aktuelles" id="aktuelles" aria-labelledby="aktuelles-title">
+    <div class="container">
+      <p class="section-label">Wissen &amp; Aktuelles</p>
+      <h2 class="section-title" id="aktuelles-title">Tipps &amp; News</h2>
+      <div class="aktuelles-grid" id="aktuellesGrid">
+        <!-- Dynamisch via JS befüllt -->
+      </div>
+      <div class="aktuelles-footer">
+        <a href="blog.html" class="aktuelles-all-link">Alle Beiträge ansehen →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ── CONTACT ── -->
   <section class="contact" id="contact" aria-labelledby="contact-title">
     <div class="container">
@@ -1976,6 +2016,37 @@
   </footer>
 
   <script>
+    // ── Aktuelles blog teaser ──
+    (async function loadAktuelles() {
+      const grid = document.getElementById('aktuellesGrid');
+      if (!grid) return;
+      try {
+        const res = await fetch('public/data/blog.json');
+        if (!res.ok) return;
+        const data = await res.json();
+        const SAFE_CATEGORIES = { ratgeber: 'Ratgeber', lokal: 'Lokal', saisonal: 'Saisonal', news: 'News' };
+        const posts = data.posts
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .slice(0, 3);
+        grid.innerHTML = posts.map(post => {
+          const safeCategory = Object.prototype.hasOwnProperty.call(SAFE_CATEGORIES, post.category) ? post.category : 'news';
+          const dateStr = post.date ? new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+          return `
+          <article class="aktuelles-card">
+            <div class="aktuelles-card-body">
+              <span class="category-badge category-${safeCategory}">${SAFE_CATEGORIES[safeCategory]}</span>
+              <h3><a href="blog.html#${post.id}">${post.title}</a></h3>
+              <p class="aktuelles-card-excerpt">${post.excerpt}</p>
+              <div class="aktuelles-card-meta">
+                <time class="aktuelles-card-date" datetime="${post.date || ''}">${dateStr}</time>
+                <a href="blog.html#${post.id}" class="aktuelles-read-more">Lesen →</a>
+              </div>
+            </div>
+          </article>`;
+        }).join('');
+      } catch (_) { /* silently hide section on error */ }
+    })();
+
     // ── Hero video overlay fade
     const heroVideo = document.querySelector('.hero-video');
     const heroOverlay = document.querySelector('.hero-overlay');
