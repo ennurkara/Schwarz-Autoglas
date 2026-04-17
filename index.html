@@ -6,6 +6,8 @@
   <meta name="description" content="Autoglas Rosenheim: Scheibenaustausch, Steinschlagreparatur & ADAS-Kalibrierung. Zertifizierter Service, 60 km Radius, Versicherungsabrechnung direkt." />
   <title>Autoglas Rosenheim – Schwarz Autoglas | Windschutzscheibe</title>
   <link rel="canonical" href="https://schwarz-autoglas.de/" />
+  <link rel="preload" href="/public/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/public/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/public/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/public/images/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon-32.png">
@@ -15,13 +17,17 @@
   <meta property="og:url" content="https://schwarz-autoglas.de/" />
   <meta property="og:title" content="Autoglas Rosenheim – Schwarz Autoglas" />
   <meta property="og:description" content="Scheibenaustausch, Steinschlagreparatur & ADAS-Kalibrierung in Rosenheim. Zertifiziert, mit Garantie, Versicherungsabrechnung direkt." />
-  <meta property="og:image" content="https://www.schwarz-autoglas.de/public/images/logo.png" />
+  <meta property="og:image" content="https://schwarz-autoglas.de/public/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content="Schwarz Autoglas" />
   <meta property="og:locale" content="de_DE" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Autoglas Rosenheim – Schwarz Autoglas" />
   <meta name="twitter:description" content="Scheibenaustausch, Steinschlagreparatur & ADAS-Kalibrierung in Rosenheim. Zertifiziert, mit Garantie, Versicherungsabrechnung direkt." />
-  <meta name="twitter:image" content="https://www.schwarz-autoglas.de/public/images/logo.png" />
+  <meta name="twitter:image" content="https://schwarz-autoglas.de/public/images/og-image.jpg" />
+  <link rel="alternate" hreflang="de" href="https://schwarz-autoglas.de/" />
+  <link rel="alternate" hreflang="x-default" href="https://schwarz-autoglas.de/" />
   <style>
     @font-face {
       font-family: 'Inter';
@@ -2302,6 +2308,17 @@
     "description": "Autoglas Rosenheim – Professioneller Windschutzscheibenservice. Austausch, Reparatur und ADAS-Kalibrierung für alle Fahrzeugklassen.",
     "telephone": "+491735252175",
     "email": "info@schwarz-autoglas.de",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+491735252175",
+      "contactType": "customer service",
+      "availableLanguage": {
+        "@type": "Language",
+        "name": "German",
+        "alternateName": "de"
+      },
+      "areaServed": "DE"
+    },
     "founder": {
       "@type": "Person",
       "name": "Burak Kara"
@@ -2322,9 +2339,15 @@
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
         "opens": "08:00",
-        "closes": "00:00"
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday"],
+        "opens": "08:00",
+        "closes": "14:00"
       }
     ],
     "priceRange": "€€",
@@ -2427,7 +2450,7 @@
       "ratingValue": 5.0,
       "bestRating": 5,
       "worstRating": 1,
-      "ratingCount": 10
+      "ratingCount": 3
     },
     "review": [
       {
