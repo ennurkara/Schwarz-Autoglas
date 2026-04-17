@@ -6,8 +6,8 @@
   <title>Blog | Schwarz Autoglas Rosenheim</title>
   <meta name="description" content="Tipps, Ratgeber und News rund um Autoglas, Windschutzscheiben und mobilen Service im Raum Rosenheim.">
   <link rel="canonical" href="https://schwarz-autoglas.de/blog.html" id="canonicalLink">
-  <link rel="icon" type="image/png" sizes="32x32" href="public/images/favicon-32x32.png">
-  <link rel="apple-touch-icon" href="public/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon-32.png">
+  <link rel="apple-touch-icon" href="/public/images/apple-touch-icon.png">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -17,18 +17,18 @@
   <meta property="og:url" content="https://schwarz-autoglas.de/blog.html" id="ogUrl">
 
   <!-- Fonts -->
-  <link rel="preload" href="public/fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="public/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="public/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/public/fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/public/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/public/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
 
   <style>
     /* ── FONTS ── */
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-300.woff2') format('woff2'); font-weight:300; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-400.woff2') format('woff2'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-500.woff2') format('woff2'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-600.woff2') format('woff2'); font-weight:600; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-700.woff2') format('woff2'); font-weight:700; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-800.woff2') format('woff2'); font-weight:800; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('/public/fonts/inter-300.woff2') format('woff2'); font-weight:300; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('/public/fonts/inter-400.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('/public/fonts/inter-500.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('/public/fonts/inter-600.woff2') format('woff2'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('/public/fonts/inter-700.woff2') format('woff2'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('/public/fonts/inter-800.woff2') format('woff2'); font-weight:800; font-display:swap; }
 
     /* ── TOKENS ── */
     :root {
@@ -287,7 +287,7 @@
     navBackdropClick.addEventListener('click', closeMenu);
 
     // ── BLOG ENGINE ──
-    const BLOG_DATA_URL = 'public/data/blog.json';
+    const BLOG_DATA_URL = '/public/data/blog.json';
     let allPosts = [];
     let activeCategory = 'all';
 
