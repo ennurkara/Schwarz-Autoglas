@@ -17,18 +17,18 @@
   <meta property="og:url" content="https://schwarz-autoglas.de/blog.html" id="ogUrl">
 
   <!-- Fonts -->
-  <link rel="preload" href="public/fonts/inter-latin-300.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="public/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="public/fonts/inter-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="public/fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="public/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="public/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
 
   <style>
     /* ── FONTS ── */
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-latin-300.woff2') format('woff2'); font-weight:300; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-latin-400.woff2') format('woff2'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-latin-500.woff2') format('woff2'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-latin-600.woff2') format('woff2'); font-weight:600; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-latin-700.woff2') format('woff2'); font-weight:700; font-display:swap; }
-    @font-face { font-family:'Inter'; src:url('public/fonts/inter-latin-800.woff2') format('woff2'); font-weight:800; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('public/fonts/inter-300.woff2') format('woff2'); font-weight:300; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('public/fonts/inter-400.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('public/fonts/inter-500.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('public/fonts/inter-600.woff2') format('woff2'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('public/fonts/inter-700.woff2') format('woff2'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Inter'; src:url('public/fonts/inter-800.woff2') format('woff2'); font-weight:800; font-display:swap; }
 
     /* ── TOKENS ── */
     :root {
@@ -66,8 +66,9 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-size: .9rem; font-weight: 500; color: var(--gray-200); transition: color .2s; }
     .nav-links a:hover { color: var(--white); }
-    .nav-cta { background: var(--accent); color: var(--black) !important; padding: .5rem 1.25rem; border-radius: 6px; font-weight: 600 !important; transition: background .2s !important; }
-    .nav-cta:hover { background: var(--accent-dark) !important; }
+    .nav-active { color: var(--white) !important; }
+    .nav-cta { background: var(--white); color: var(--black) !important; padding: .5rem 1.25rem; border-radius: 4px; font-weight: 600 !important; transition: background .2s, transform .15s !important; }
+    .nav-cta:hover { background: var(--gray-100) !important; transform: translateY(-1px); }
     .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: .5rem; }
     .nav-burger span { display: block; width: 24px; height: 2px; background: var(--white); transition: transform .3s, opacity .3s; border-radius: 2px; }
     .nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 110; opacity: 0; transition: opacity .3s; }
@@ -106,7 +107,7 @@
     @media (max-width: 580px) { .blog-grid { grid-template-columns: 1fr; } }
 
     /* ── BLOG CARD ── */
-    .blog-card { background: var(--gray-950); border: 1px solid var(--gray-800); border-radius: 12px; overflow: hidden; transition: border-color .2s, transform .2s; display: flex; flex-direction: column; }
+    .blog-card { background: var(--gray-950); border: 1px solid var(--gray-800); overflow: hidden; transition: border-color .2s, transform .2s; display: flex; flex-direction: column; }
     .blog-card:hover { border-color: var(--gray-600); transform: translateY(-2px); }
     .blog-card-img { aspect-ratio: 16/9; object-fit: cover; width: 100%; }
     .blog-card-img-placeholder { aspect-ratio: 16/9; background: var(--gray-800); display: flex; align-items: center; justify-content: center; }
@@ -133,7 +134,7 @@
     .post-back { display: inline-flex; align-items: center; gap: .4rem; color: var(--gray-400); font-size: .875rem; margin-bottom: 2rem; transition: color .2s; }
     .post-back:hover { color: var(--white); }
     .post-back svg { width: 16px; height: 16px; }
-    .post-hero-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; margin-bottom: 2rem; }
+    .post-hero-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; margin-bottom: 2rem; }
     .post-title { font-size: clamp(1.5rem, 3.5vw, 2.25rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.2; margin-bottom: 1rem; }
     .post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gray-800); }
     .post-date { font-size: .875rem; color: var(--gray-400); }
@@ -144,11 +145,11 @@
     .post-content ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
     .post-content li { margin-bottom: .4rem; }
     .post-content strong { color: var(--white); font-weight: 600; }
-    .post-cta { margin-top: 3rem; padding: 2rem; background: var(--gray-950); border: 1px solid var(--gray-700); border-radius: 12px; text-align: center; }
+    .post-cta { margin-top: 3rem; padding: 2rem; background: var(--gray-950); border: 1px solid var(--gray-700); text-align: center; }
     .post-cta h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
     .post-cta p { color: var(--gray-300); font-size: .9rem; margin-bottom: 1.25rem; }
-    .btn-primary { display: inline-block; background: var(--accent); color: var(--black); font-weight: 700; font-size: .95rem; padding: .75rem 1.75rem; border-radius: 8px; transition: background .2s; }
-    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary { display: inline-block; background: var(--white); color: var(--black); font-weight: 700; font-size: .95rem; padding: .75rem 1.75rem; border-radius: 4px; transition: background .2s, transform .15s; }
+    .btn-primary:hover { background: var(--gray-100); transform: translateY(-1px); }
 
     /* ── EMPTY STATE ── */
     .blog-empty { text-align: center; padding: 4rem 1rem; color: var(--gray-400); }
@@ -192,6 +193,7 @@
       <li><a href="index.html#services">Leistungen</a></li>
       <li><a href="index.html#process">Ablauf</a></li>
       <li><a href="index.html#testimonials">Bewertungen</a></li>
+      <li><a href="blog.html" class="nav-active" aria-current="page">Blog</a></li>
       <li><a href="index.html#contact" class="nav-cta">Termin buchen</a></li>
     </ul>
     <button class="nav-burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks">

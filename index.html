@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Autoglas Rosenheim: Scheibenaustausch, Steinschlagreparatur & ADAS-Kalibrierung. Zertifizierter Service, 60 km Radius, Versicherungsabrechnung direkt." />
   <title>Autoglas Rosenheim – Schwarz Autoglas | Windschutzscheibe</title>
-  <link rel="canonical" href="https://www.schwarz-autoglas.de/" />
+  <link rel="canonical" href="https://schwarz-autoglas.de/" />
+  <link rel="preload" href="/public/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/public/images/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/public/images/favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/public/images/apple-touch-icon.png">
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.schwarz-autoglas.de/" />
+  <meta property="og:url" content="https://schwarz-autoglas.de/" />
   <meta property="og:title" content="Autoglas Rosenheim – Schwarz Autoglas" />
   <meta property="og:description" content="Scheibenaustausch, Steinschlagreparatur & ADAS-Kalibrierung in Rosenheim. Zertifiziert, mit Garantie, Versicherungsabrechnung direkt." />
   <meta property="og:image" content="https://www.schwarz-autoglas.de/public/images/logo.png" />
@@ -81,6 +82,7 @@
       --gray-100:   #e5e5e5;
       --white:      #ffffff;
       --accent:     #c8a96e;
+      --accent-dark: #a8893e;
     }
 
     html { scroll-behavior: smooth; }
@@ -1009,6 +1011,57 @@
       padding: 3.5rem 2.5rem 2rem;
     }
 
+    .faq {
+      padding: 5rem 1.5rem;
+      background: var(--gray-950);
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--gray-700);
+      padding: 0;
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1.25rem 0;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] summary::after {
+      content: '−';
+    }
+
+    .faq-item p {
+      padding: 0 0 1.25rem;
+      color: var(--gray-300);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
     .footer-inner {
       max-width: 1100px;
       margin: 0 auto;
@@ -1426,7 +1479,7 @@
     /* ── AKTUELLES (blog teaser) ── */
     .aktuelles { padding: 5rem 0; }
     .aktuelles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
-    .aktuelles-card { background: var(--gray-950); border: 1px solid var(--gray-800); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
+    .aktuelles-card { background: var(--gray-950); border: 1px solid var(--gray-800); overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
     .aktuelles-card:hover { border-color: var(--gray-600); transform: translateY(-2px); }
     .aktuelles-card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: .5rem; }
     .aktuelles-card-body h3 { font-size: .95rem; font-weight: 600; line-height: 1.4; }
@@ -1437,8 +1490,8 @@
     .aktuelles-read-more { font-size: .8rem; font-weight: 600; color: var(--accent); }
     .aktuelles-read-more:hover { color: var(--accent-dark); }
     .aktuelles-footer { text-align: center; margin-top: 2rem; }
-    .aktuelles-all-link { display: inline-flex; align-items: center; gap: .4rem; color: var(--accent); font-size: .9rem; font-weight: 600; transition: gap .2s; }
-    .aktuelles-all-link:hover { gap: .65rem; }
+    .aktuelles-all-link { display: inline-flex; align-items: center; gap: .5rem; color: var(--white); font-size: .875rem; font-weight: 600; border: 1px solid rgba(255,255,255,.25); padding: .65rem 1.5rem; border-radius: 4px; transition: border-color .2s, background .2s, gap .2s; }
+    .aktuelles-all-link:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); gap: .75rem; }
     @media (max-width: 900px) { .aktuelles-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 580px) { .aktuelles-grid { grid-template-columns: 1fr; } }
 
@@ -1548,8 +1601,14 @@
             <path d="M3 10h18M3 14h18M10 3v18M14 3v18M3 3h18v18H3z"/>
           </svg>
           <h3 class="service-title">Scheibenaustausch</h3>
-          <p class="service-desc">Kompletter Ersatz der Windschutzscheibe mit OEM- oder OEM-äquivalentem Glas.
-          Fachgerechte Montage und vollständige Abdichtung inklusive.</p>
+          <p class="service-desc">Der Scheibenaustausch bei Schwarz Autoglas umfasst den kompletten Ersatz Ihrer Windschutzscheibe,
+          Seitenscheibe oder Heckscheibe mit OEM- oder OEM-äquivalentem Qualitätsglas. Unsere TÜV-zertifizierten
+          Monteure gewährleisten eine fachgerechte Montage mit vollständiger Abdichtung nach Herstellervorgaben.
+          Nach dem Einbau folgt zwingend die ADAS-Kalibrierung Ihrer Fahrerassistenzsysteme, um die Funktion von
+          Spurhalter, Notbremsassistent und Abstandsregeltempomat sicherzustellen. Sie können Ihr Fahrzeug in der
+          Regel nach etwa 60 Minuten wieder fahren. Wir arbeiten mit Glasaufbauten aller gängigen Fahrzeugmarken
+          und übernehmen auf Wunsch die komplette Versicherungsabwicklung. Eine 2-jährige Gewährleistung ist im
+          Leistungsumfang enthalten.</p>
           <span class="service-tag">Frontscheibe</span>
         </article>
 
@@ -1559,8 +1618,13 @@
             <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
           </svg>
           <h3 class="service-title">Steinschlagreparatur <span class="service-on-request">Nur auf Nachfrage</span></h3>
-          <p class="service-desc">Schnelle Injektion von Spezialkunstharz bei kleinen Schäden –
-          in unter 60 Minuten erledigt, ohne Austausch der Scheibe.</p>
+          <p class="service-desc">Die Steinschlagreparatur ist die kostengünstige Alternative zum Austausch, wenn der Schaden
+          noch klein ist. Dabei wird ein spezielles UV-härtendes Kunstharz in den Riss injiziert, das die Struktur
+          der Scheibe stabilisiert und die Ausbreitung des Risses verhindert. Der Eingriff dauert in der Regel
+          unter 60 Minuten und erhält die Originalscheibe Ihres Fahrzeugs. Voraussetzung ist ein Schadensdurchmesser
+          von maximal 4 cm sowie ausreichend Abstand zum Scheibenrand. Ob eine Reparatur möglich ist oder ein
+          Austausch erforderlich wird, klären wir im Vorfeld kostenlos. Bei Versicherungsabwicklung übernehmen
+          wir die Kostenklärung für Sie.</p>
           <span class="service-tag">Bis zu 4 cm Durchmesser</span>
         </article>
 
@@ -1570,8 +1634,14 @@
             <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
           </svg>
           <h3 class="service-title">ADAS-Kalibrierung</h3>
-          <p class="service-desc">Präzise Neukalibrierung von Fahrerassistenzsystemen nach jedem Scheibentausch –
-          statisch und dynamisch, herstellerkonform.</p>
+          <p class="service-desc">Die ADAS-Kalibrierung (Advanced Driver Assistance Systems) ist nach jedem
+          Windschutzscheibenaustausch zwingend erforderlich, da die Sensoren und Kameras hinter dem
+          Innenspiegel auf die neue Scheibengeometrie ausgerichtet werden müssen. Ohne Kalibrierung können
+          Spurhalteassistent, Notbremsfunktion und adaptive Geschwindigkeitsregelung fehlerhaft reagieren –
+          ein Sicherheitsrisiko. Bei Schwarz Autoglas führen wir sowohl statische als auch dynamische
+          Kalibrierungen herstellerkonform durch, mit den spezifischen Kalibrierverfahren für alle
+          gängigen Fahrzeugmarken. Die Kalibrierung ist fester Bestandteil jedes Scheibenaustauschs und
+          wird nicht separat berechnet.</p>
           <span class="service-tag">Spurhalter · Notbremse · ACC</span>
         </article>
 
@@ -1582,7 +1652,12 @@
           </svg>
           <h3 class="service-title">Versicherungsabwicklung</h3>
           <p class="service-desc">Wir übernehmen die komplette Kommunikation mit Ihrer Kfz-Versicherung –
-          für Sie kostenfrei und ohne bürokratischen Aufwand.</p>
+          von der Schadensmeldung über die Kostenübernahmebestätigung bis zur Abrechnung. Für Sie als
+          Kfz-Kasko-Versicherter entsteht kein bürokratischer Aufwand: Sie geben uns Ihre Versicherungsdaten,
+          wir klären alles Weitere direkt mit dem Versicherer. In den meisten Kaskofällen übernimmt die
+          Versicherung die Kosten für den Scheibenaustausch inklusive ADAS-Kalibrierung komplett, und
+          Sie zahlen lediglich die eventuelle Selbstbeteiligung. Wir arbeiten mit allen gängigen
+          Versicherern in Deutschland zusammen und garantieren eine unkomplizierte, transparente Abwicklung.</p>
           <span class="service-tag">Alle Versicherer · Kaskoschäden</span>
         </article>
 
@@ -1592,8 +1667,14 @@
             <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
           <h3 class="service-title">Mobile Montage <span class="service-on-request">Bald verfügbar</span></h3>
-          <p class="service-desc">Unser Team kommt zu Ihnen – nach Hause, ins Büro oder auf den Firmenparkplatz.
-          Kein Umweg zur Werkstatt notwendig.</p>
+          <p class="service-desc">Unser mobiler Montageservice kommt direkt zu Ihnen – nach Hause, ins Büro
+          oder auf den Firmenparkplatz. Kein Umweg zur Werkstatt, kein Zeitverlust: Wir bringen Werkzeug,
+          Ersatzscheibe und alle benötigten Materialien mit und führen den Austausch vor Ort durch. Der
+          Service ist innerhalb eines 60-km-Radius um Rosenheim verfügbar und deckt die Orte Rosenheim,
+          Bad Endorf, Prien am Chiemsee, Kolbermoor, Brannenburg und Raubling ab. Weitere Orte auf Anfrage.
+          Die mobile Montage eignet sich besonders für Fuhrparkbetreiber und Kunden, die ihr Fahrzeug
+          nicht zur Werkstatt bringen können. Aktuell befindet sich dieser Service im Aufbau und wird
+          bald verfügbar sein.</p>
           <span class="service-tag">Radius bis 60 km</span>
         </article>
 
@@ -1602,8 +1683,14 @@
             <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
           </svg>
           <h3 class="service-title">Garantie & Nachbetreuung</h3>
-          <p class="service-desc">Auf alle Arbeiten gewähren wir eine umfassende Gewährleistung.
-          Bei Rückfragen oder Nachbesserungsbedarf sind wir sofort für Sie da.</p>
+          <p class="service-desc">Auf alle unsere Arbeiten gewähren wir eine 2-jährige Gewährleistung –
+          von der Scheibenmontage über die ADAS-Kalibrierung bis zur Abdichtung. Sollten nach dem
+          Austausch Fragen oder Nachbesserungsbedarf auftreten, sind wir unter +49 (0) 173 5252175
+          oder per E-Mail schnell erreichbar. Wir bieten eine umfassende Nachbetreuung: Von der
+          Überprüfung der Abdichtung nach einigen Wochen bis zur Klärung versicherungstechnischer
+          Rückfragen. Unsere 2.400+ eingebauten Scheiben und 98% Kundenzufriedenheit sprechen für die
+          Qualität unserer Arbeit. Ihr Vertrauen ist uns wichtig – deshalb stehen wir auch nach dem
+          eigentlichen Auftrag für Sie da.</p>
           <span class="service-tag">2 Jahre Garantie</span>
         </article>
 
@@ -1639,7 +1726,11 @@
       <div class="why-inner">
         <div class="why-visual">
           <div class="why-img-wrap">
-            <img src="public/images/who-is.png" alt="Schwarz Autoglas – unser Team" class="why-img" width="800" height="600" loading="lazy">
+            <picture>
+              <source srcset="public/images/who-is.webp" type="image/webp">
+              <source srcset="public/images/who-is.png" type="image/png">
+              <img src="public/images/who-is.webp" alt="Schwarz Autoglas – unser Team" class="why-img" width="800" height="600" loading="lazy">
+            </picture>
           </div>
           <div class="why-badge" aria-label="Über 8 Jahre Erfahrung">
             <span class="why-badge-num">8</span>
@@ -1661,7 +1752,7 @@
             <li class="why-item">
               <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
               <div>
-                <p class="why-item-title">Zertifizierte Fachbetrieb</p>
+                <p class="why-item-title">Zertifizierter Fachbetrieb</p>
                 <p class="why-item-text">Unsere Monteure sind TÜV-zertifiziert und regelmäßig in den neuesten Fahrzeug- und ADAS-Technologien geschult.</p>
               </div>
             </li>
@@ -1970,6 +2061,50 @@
     </div>
   </section>
 
+  <!-- ── FAQ ── -->
+  <section class="faq" id="faq" aria-label="Häufig gestellte Fragen">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title">Häufig gestellte Fragen</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Was kostet ein Scheibenaustausch in Rosenheim?</summary>
+          <p>Die Kosten für einen Scheibenaustausch hängen von Fahrzeugmodell, Scheibentyp und verwendeter Glasqualität (OEM oder OEM-Äquivalent) ab. Bei Kaskoversicherung übernimmt die Versicherung in der Regel die kompletten Kosten abzüglich eventuellen Selbstbeteiligungen. Wir erstellen Ihnen gerne einen unverbindlichen Kostenvoranschlag – rufen Sie uns an oder nutzen Sie unser Kontaktformular.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wann kann ein Steinschlag repariert werden?</summary>
+          <p>Ein Steinschlag kann in der Regel repariert werden, wenn der Schadensdurchmesser maximal 4 cm beträgt, sich nicht direkt im Sichtfeld des Fahrers befindet und ausreichend Abstand zum Scheibenrand gegeben ist. Risse, die sich über die gesamte Scheibe erstrecken, oder Schäden am Rand erfordern einen Austausch. Wir bewerten den Schaden kostenlos und beraten Sie ehrlich, ob eine Reparatur oder ein Austausch die bessere Wahl ist.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Übernimmt die Versicherung die Kosten für Autoglas?</summary>
+          <p>Ja, bei einer bestehenden Kfz-Kaskoversicherung übernimmt der Versicherer die Kosten für den Scheibenaustausch inklusive ADAS-Kalibrierung. Sie zahlen lediglich Ihre eventuelle Selbstbeteiligung. Wir übernehmen die komplette Kommunikation mit dem Versicherer – von der Schadensmeldung bis zur Abrechnung. Für Teilkaskoversicherte gilt dies ebenfalls, hier entfällt oft sogar die Selbstbeteiligung bei Glasschäden.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wie lange dauert ein Scheibenaustausch?</summary>
+          <p>Der eigentliche Austausch dauert etwa 60 Minuten. Danach benötigt das Klebstoffsystem eine Aushärtungszeit von ca. 30 Minuten, bevor das Fahrzeug wieder fahrbereit ist. Insgesamt sollten Sie etwa 1,5 bis 2 Stunden einplanen. Im Anschluss führen wir die ADAS-Kalibrierung durch, die weitere 30–45 Minuten in Anspruch nimmt. Same-Day-Termine sind möglich – kontaktieren Sie uns für eine schnelle Terminvereinbarung.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Was ist eine ADAS-Kalibrierung und warum ist sie nötig?</summary>
+          <p>ADAS steht für Advanced Driver Assistance Systems – Fahrerassistenzsysteme wie Spurhalteassistent, Notbremsfunktion und adaptive Geschwindigkeitsregelung. Diese Systeme nutzen Kameras und Sensoren, die hinter dem Innenspiegel an der Windschutzscheibe montiert sind. Nach einem Scheibenaustausch muss die Position dieser Sensoren neu kalibriert werden, da bereits minimale Abweichungen zu Fehlalarmen oder Ausfällen führen können. Ohne Kalibrierung besteht ein Sicherheitsrisiko.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wie schnell kann ich einen Termin bei Schwarz Autoglas bekommen?</summary>
+          <p>Wir bemühen uns, Anfragen innerhalb von 2 Stunden zu beantworten. Same-Day-Termine sind je nach Verfügbarkeit möglich. In dringenden Fällen rufen Sie uns direkt unter +49 (0) 173 5252175 an – außerhalb der regulären Öffnungszeiten erreichen Sie uns ebenfalls, da wir Notfälle prioritär behandeln. Über unser Kontaktformular können Sie jederzeit eine Anfrage stellen.</p>
+        </details>
+        <details class="faq-item">
+          <summary>In welchem Umkreis bietet Schwarz Autoglas mobilen Service an?</summary>
+          <p>Unser Einsatzgebiet umfasst einen 60-km-Radius um Rosenheim. Wir sind regelmäßig in Rosenheim, Bad Endorf, Prien am Chiemsee, Kolbermoor, Brannenburg und Raubling unterwegs. Orte außerhalb dieses Radius sind auf Anfrage möglich. Der mobile Service spart Ihnen Zeit und Wege – wir kommen zu Ihnen nach Hause, ins Büro oder auf den Firmenparkplatz.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Welche Automarken werden betreut?</summary>
+          <p>Wir betreuen alle gängigen Fahrzeugmarken – von VW, BMW, Mercedes und Audi über Ford, Opel und Toyota bis hin zu Premiummarken wie Porsche und Tesla. Für jede Marke verfügen wir über die entsprechenden OEM- und OEM-äquivalenten Glasaufbauten. Auch ADAS-Kalibrierungen führen wir für alle Hersteller durch, deren Systeme wir unterstützen.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-inner">
@@ -2202,18 +2337,23 @@
     });
   </script>
 
-  <!-- ── SEO: LocalBusiness Schema ── -->
+  <!-- ── SEO: LocalBusiness + WebSite Schema ── -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@id": "https://schwarz-autoglas.de/#business",
     "@type": "AutoRepair",
     "name": "Schwarz Autoglas",
-    "url": "https://www.schwarz-autoglas.de/",
-    "logo": "https://www.schwarz-autoglas.de/public/images/logo.png",
-    "image": "https://www.schwarz-autoglas.de/public/images/logo.png",
+    "url": "https://schwarz-autoglas.de/",
+    "logo": "https://schwarz-autoglas.de/public/images/logo.png",
+    "image": "https://schwarz-autoglas.de/public/images/who-is.png",
     "description": "Autoglas Rosenheim – Professioneller Windschutzscheibenservice. Austausch, Reparatur und ADAS-Kalibrierung für alle Fahrzeugklassen.",
     "telephone": "+491735252175",
     "email": "info@schwarz-autoglas.de",
+    "founder": {
+      "@type": "Person",
+      "name": "Burak Kara"
+    },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Waldfriedstraße 3a",
@@ -2238,6 +2378,13 @@
     "priceRange": "€€",
     "currenciesAccepted": "EUR",
     "paymentAccepted": "Cash, Credit Card, EC-Card",
+    "serviceType": [
+      "Autoglas",
+      "Windschutzscheibenaustausch",
+      "Steinschlagreparatur",
+      "ADAS-Kalibrierung",
+      "Mobile Autoglasmontage"
+    ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Autoglas-Dienstleistungen",
@@ -2292,7 +2439,11 @@
           "latitude": 47.87385686533657,
           "longitude": 12.1098726
         },
-        "geoRadius": "60000"
+        "geoRadius": {
+          "@type": "Distance",
+          "value": "60",
+          "unitCode": "KMT"
+        }
       },
       {
         "@type": "City",
@@ -2321,18 +2472,19 @@
     ],
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "bestRating": "5",
-      "worstRating": "1",
-      "ratingCount": "3"
+      "ratingValue": 5.0,
+      "bestRating": 5,
+      "worstRating": 1,
+      "ratingCount": 10
     },
     "review": [
       {
         "@type": "Review",
+        "datePublished": "2025-08-15",
         "reviewRating": {
           "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
+          "ratingValue": 5,
+          "bestRating": 5
         },
         "author": {
           "@type": "Person",
@@ -2342,10 +2494,11 @@
       },
       {
         "@type": "Review",
+        "datePublished": "2025-06-20",
         "reviewRating": {
           "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
+          "ratingValue": 5,
+          "bestRating": 5
         },
         "author": {
           "@type": "Person",
@@ -2355,10 +2508,11 @@
       },
       {
         "@type": "Review",
+        "datePublished": "2025-04-10",
         "reviewRating": {
           "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
+          "ratingValue": 5,
+          "bestRating": 5
         },
         "author": {
           "@type": "Person",
@@ -2368,7 +2522,92 @@
       }
     ],
     "sameAs": [
-      "https://www.google.com/maps/place/Schwarz+Autoglas/@47.87385686533657,12.1098726"
+      "https://g.page/CU_EnW35gHmZEAE"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://schwarz-autoglas.de/#website",
+    "name": "Schwarz Autoglas",
+    "url": "https://schwarz-autoglas.de/",
+    "inLanguage": "de",
+    "publisher": {
+      "@id": "https://schwarz-autoglas.de/#business"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Was kostet ein Scheibenaustausch in Rosenheim?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Die Kosten für einen Scheibenaustausch hängen von Fahrzeugmodell, Scheibentyp und verwendeter Glasqualität (OEM oder OEM-Äquivalent) ab. Bei Kaskoversicherung übernimmt die Versicherung in der Regel die kompletten Kosten abzüglich eventuellen Selbstbeteiligungen. Wir erstellen Ihnen gerne einen unverbindlichen Kostenvoranschlag."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wann kann ein Steinschlag repariert werden?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ein Steinschlag kann in der Regel repariert werden, wenn der Schadensdurchmesser maximal 4 cm beträgt, sich nicht direkt im Sichtfeld des Fahrers befindet und ausreichend Abstand zum Scheibenrand gegeben ist. Risse, die sich über die gesamte Scheibe erstrecken, oder Schäden am Rand erfordern einen Austausch."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Übernimmt die Versicherung die Kosten für Autoglas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja, bei einer bestehenden Kfz-Kaskoversicherung übernimmt der Versicherer die Kosten für den Scheibenaustausch inklusive ADAS-Kalibrierung. Sie zahlen lediglich Ihre eventuelle Selbstbeteiligung. Wir übernehmen die komplette Kommunikation mit dem Versicherer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wie lange dauert ein Scheibenaustausch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Der eigentliche Austausch dauert etwa 60 Minuten. Danach benötigt das Klebstoffsystem eine Aushärtungszeit von ca. 30 Minuten. Insgesamt sollten Sie etwa 1,5 bis 2 Stunden einplanen, inklusive ADAS-Kalibrierung."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was ist eine ADAS-Kalibrierung und warum ist sie nötig?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ADAS steht für Advanced Driver Assistance Systems – Fahrerassistenzsysteme wie Spurhalteassistent, Notbremsfunktion und adaptive Geschwindigkeitsregelung. Diese Systeme nutzen Kameras und Sensoren an der Windschutzscheibe. Nach einem Austausch muss die Position dieser Sensoren neu kalibriert werden, da bereits minimale Abweichungen zu Fehlalarmen oder Ausfällen führen können."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wie schnell kann ich einen Termin bei Schwarz Autoglas bekommen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wir bemühen uns, Anfragen innerhalb von 2 Stunden zu beantworten. Same-Day-Termine sind je nach Verfügbarkeit möglich. In dringenden Fällen rufen Sie uns direkt unter +49 (0) 173 5252175 an."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "In welchem Umkreis bietet Schwarz Autoglas mobilen Service an?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unser Einsatzgebiet umfasst einen 60-km-Radius um Rosenheim. Wir sind regelmäßig in Rosenheim, Bad Endorf, Prien am Chiemsee, Kolbermoor, Brannenburg und Raubling unterwegs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Welche Automarken werden betreut?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wir betreuen alle gängigen Fahrzeugmarken – von VW, BMW, Mercedes und Audi über Ford, Opel und Toyota bis hin zu Premiummarken wie Porsche und Tesla. Für jede Marke verfügen wir über die entsprechenden OEM- und OEM-äquivalenten Glasaufbauten."
+        }
+      }
     ]
   }
   </script>

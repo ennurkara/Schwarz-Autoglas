@@ -1,4 +1,33 @@
+# AI Search Crawlers - explicit allow for citation visibility
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI Training Crawlers - block to protect content
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
 User-agent: *
 Allow: /
 
-Sitemap: https://www.schwarz-autoglas.de/sitemap.xml
+Sitemap: https://schwarz-autoglas.de/sitemap.xml
