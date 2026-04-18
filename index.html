@@ -896,6 +896,54 @@
       color: var(--gray-200);
     }
 
+    .hours-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
+    }
+
+    .hours-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .hours-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .day-badge {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      background: var(--white);
+      color: #000;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .day-badge--closed {
+      background: var(--gray-700);
+      color: var(--gray-500);
+    }
+
+    .hours-time {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--gray-200);
+    }
+
+    .hours-time--closed {
+      color: var(--gray-500);
+      font-style: italic;
+    }
+
     .contact-map-buttons {
       display: flex;
       gap: 0.75rem;
@@ -1454,9 +1502,10 @@
 
       .process-steps::before { display: none; }
 
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
       .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-form { order: -1; }
 
       .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
       .footer-brand { grid-column: 1 / -1; }
@@ -1467,7 +1516,7 @@
       .hero-actions { flex-direction: column; align-items: center; }
       .process-steps { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
       .footer-top { grid-template-columns: 1fr; }
       .trust-bar-inner { justify-content: center; }
       .contact-map-buttons { flex-direction: row; }
@@ -1957,7 +2006,27 @@
               <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
               <div>
                 <p class="contact-item-label">Öffnungszeiten</p>
-                <p class="contact-item-value">Mo–So 08:00–00:00 Uhr</p>
+                <div class="hours-grid">
+                  <div class="hours-group">
+                    <div class="hours-badges">
+                      <span class="day-badge">Mo–Do</span>
+                      <span class="day-badge">So</span>
+                    </div>
+                    <p class="hours-time">08:00–20:00</p>
+                  </div>
+                  <div class="hours-group">
+                    <div class="hours-badges">
+                      <span class="day-badge">Sa</span>
+                    </div>
+                    <p class="hours-time">08:00–23:00</p>
+                  </div>
+                  <div class="hours-group">
+                    <div class="hours-badges">
+                      <span class="day-badge day-badge--closed">Fr</span>
+                    </div>
+                    <p class="hours-time hours-time--closed">Ruhetag</p>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="contact-item" role="listitem">
@@ -2339,15 +2408,21 @@
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"],
         "opens": "08:00",
-        "closes": "18:00"
+        "closes": "20:00"
       },
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Saturday"],
         "opens": "08:00",
-        "closes": "14:00"
+        "closes": "23:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Sunday"],
+        "opens": "08:00",
+        "closes": "20:00"
       }
     ],
     "priceRange": "€€",
