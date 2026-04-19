@@ -4,194 +4,392 @@
     {
       "parameters": {
         "rule": {
-          "interval": [{ "field": "weeks", "weeksInterval": 1, "triggerAtDay": [1], "triggerAtHour": 8, "triggerAtMinute": 0 }]
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
         }
       },
-      "id": "node-1",
+      "id": "3a09aa8a-5634-4c67-8ad0-db5da141cda4",
       "name": "Montags 08:00",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 300]
+      "position": [
+        192,
+        -160
+      ]
     },
     {
       "parameters": {
-        "method": "GET",
-        "url": "https://api.github.com/repos/={{ $vars.GITHUB_OWNER }}/schwarz-autoglas/contents/public/data/blog.json",
+        "url": "https://api.github.com/repos/ennurkara/schwarz-autoglas/contents/public/data/blog.json",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
-        "options": {
-          "headers": {
-            "values": [
-              { "name": "Accept", "value": "application/vnd.github+json" },
-              { "name": "X-GitHub-Api-Version", "value": "2022-11-28" }
-            ]
-          }
-        }
+        "options": {}
       },
-      "id": "node-2",
+      "id": "04683016-12f9-4784-9f9a-04de0fce3af2",
       "name": "GitHub: blog.json lesen",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [460, 300],
-      "credentials": { "httpHeaderAuth": { "id": "github-pat", "name": "GitHub PAT" } }
+      "position": [
+        416,
+        -160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "OrN0FqpPnPRVx7SO",
+          "name": "Github PAT"
+        }
+      }
     },
     {
       "parameters": {
         "jsCode": "const raw = $input.first().json;\nconst decoded = Buffer.from(raw.content, 'base64').toString('utf-8');\nconst data = JSON.parse(decoded);\nconst existingTitles = data.posts.map(p => p.title);\nconst postCount = data.posts.length;\nconst categories = ['ratgeber', 'lokal', 'saisonal', 'news'];\nconst nextCategory = categories[postCount % categories.length];\nconst currentMonth = new Date().toLocaleString('de-DE', { month: 'long' });\nconst today = new Date().toISOString().split('T')[0];\nreturn [{ json: { data, existingTitles, nextCategory, currentMonth, today, sha: raw.sha } }];"
       },
-      "id": "node-3",
+      "id": "e96042c8-b759-414a-85ed-e4e984173138",
       "name": "Parse blog.json",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [680, 300]
+      "position": [
+        624,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const openaiResponse = $input.first().json;\nconst text = openaiResponse.choices[0].message.content.trim();\nconst newPost = JSON.parse(text);\nconst imagePrompt = `Professional automotive photography for a German auto glass service blog. Scene: ${newPost.imageAlt}. Photorealistic, commercial quality, bright professional lighting, no text overlays, no people, modern vehicle with glass focus, clean background.`;\nreturn [{ json: { newPost, imagePrompt } }];"
+      },
+      "id": "b43b3aa2-b21c-440f-bd26-81f83dbcff62",
+      "name": "Parse ChatGPT Post",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        -160
+      ]
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.anthropic.com/v1/messages",
+        "url": "https://api.openai.com/v1/images/generations",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
+        "options": {},
         "sendBody": true,
-        "contentType": "json",
-        "body": {
-          "values": [
-            { "name": "model", "value": "claude-sonnet-4-6" },
-            { "name": "max_tokens", "value": 2000 },
-            { "name": "system", "value": "Du bist ein SEO-Texter für Schwarz Autoglas Rosenheim, einen mobilen Autoglas-Service im Raum Rosenheim (Bayern). Du schreibst präzise, hilfreiche Blog-Posts auf Deutsch. Wichtige SEO-Keywords: Autoglas Rosenheim, Steinschlag, Windschutzscheibe reparieren, mobiler Autoglas-Service, Scheibentausch, ADAS-Kalibrierung, Teilkasko. Gib IMMER nur valides JSON zurück - kein Text davor oder danach, keine Markdown-Codeblöcke." },
-            { "name": "messages", "value": "={{ JSON.stringify([{ role: 'user', content: 'Schreibe einen neuen Blog-Post für Schwarz Autoglas. Kategorie: ' + $json.nextCategory + '. Aktueller Monat: ' + $json.currentMonth + '. Bereits vorhandene Titel (bitte nicht wiederholen): ' + JSON.stringify($json.existingTitles) + '. Der Content soll 400-600 Wörter haben, Abschnitte als h2 Tags, Absätze als p Tags. Datum heute: ' + $json.today + '. Gib dieses JSON-Objekt zurück: {id: kebab-case-slug, title: Titel, date: ' + $json.today + ', category: ' + $json.nextCategory + ', excerpt: Max 160 Zeichen kein HTML, content: HTML mit p und h2 Tags, imageAlt: Beschreibender Text, tags: [keyword1, keyword2, keyword3]}' }]) }}" }
-          ]
-        },
-        "options": {
-          "headers": {
-            "values": [
-              { "name": "anthropic-version", "value": "2023-06-01" }
-            ]
-          }
-        }
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ model: 'dall-e-3', prompt: $('Parse ChatGPT Post').first().json.imagePrompt, n: 1, size: '1792x1024', response_format: 'b64_json' }) }}"
       },
-      "id": "node-4",
-      "name": "Claude: Post generieren",
+      "id": "2155ea58-33a7-4581-ab56-74bb62be9cc9",
+      "name": "DALL-E: Bild generieren",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 300],
-      "credentials": { "httpHeaderAuth": { "id": "anthropic-key", "name": "Anthropic API Key" } }
-    },
-    {
-      "parameters": {
-        "jsCode": "const claudeResponse = $input.first().json;\nconst text = claudeResponse.content[0].text.trim();\nconst newPost = JSON.parse(text);\nconst { data, sha } = $('Parse blog.json').first().json;\ndata.posts.unshift(newPost);\nconst MAX_POSTS = 52;\nif (data.posts.length > MAX_POSTS) data.posts = data.posts.slice(0, MAX_POSTS);\nconst updatedContent = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');\nreturn [{ json: { updatedContent, sha, newPostId: newPost.id, newPostDate: newPost.date } }];"
-      },
-      "id": "node-5",
-      "name": "Merge: blog.json aufbauen",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [1120, 300]
+      "position": [
+        1296,
+        -160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "r7IFFNH731vRdBWY",
+          "name": "Open AI"
+        }
+      }
     },
     {
       "parameters": {
         "method": "PUT",
-        "url": "https://api.github.com/repos/={{ $vars.GITHUB_OWNER }}/schwarz-autoglas/contents/public/data/blog.json",
+        "url": "={{ 'https://api.github.com/repos/ennurkara/schwarz-autoglas/contents/public/images/blog/' + $('Parse ChatGPT Post').first().json.newPost.id + '.png' }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
-        "contentType": "json",
-        "body": {
-          "values": [
-            { "name": "message", "value": "=content: add weekly blog post {{ $json.newPostId }}" },
-            { "name": "content", "value": "={{ $json.updatedContent }}" },
-            { "name": "sha", "value": "={{ $json.sha }}" }
-          ]
-        },
-        "options": {
-          "headers": {
-            "values": [
-              { "name": "Accept", "value": "application/vnd.github+json" },
-              { "name": "X-GitHub-Api-Version", "value": "2022-11-28" }
-            ]
-          }
-        }
+        "options": {},
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ message: 'content: add blog post image ' + $('Parse ChatGPT Post').first().json.newPost.id, content: $json.data[0].b64_json }) }}"
       },
-      "id": "node-6",
-      "name": "GitHub: blog.json committen",
+      "id": "38bbc94f-e5a1-429d-bf24-a2e20e9c8367",
+      "name": "GitHub: Bild committen",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1340, 300],
-      "credentials": { "httpHeaderAuth": { "id": "github-pat", "name": "GitHub PAT" } }
+      "position": [
+        1504,
+        -160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "OrN0FqpPnPRVx7SO",
+          "name": "Github PAT"
+        }
+      }
     },
     {
       "parameters": {
-        "method": "GET",
-        "url": "https://api.github.com/repos/={{ $vars.GITHUB_OWNER }}/schwarz-autoglas/contents/sitemap.xml",
+        "jsCode": "const { newPost } = $('Parse ChatGPT Post').first().json;\nnewPost.image = `/public/images/blog/${newPost.id}.png`;\nconst { data, sha } = $('Parse blog.json').first().json;\ndata.posts.unshift(newPost);\nconst MAX_POSTS = 52;\nif (data.posts.length > MAX_POSTS) data.posts = data.posts.slice(0, MAX_POSTS);\nconst updatedContent = Buffer.from(JSON.stringify(data, null, 2)).toString('base64');\nreturn [{ json: { updatedContent, sha, newPostId: newPost.id, newPostDate: newPost.date } }];"
+      },
+      "id": "f5f2b7d1-4f9b-41ce-beb0-0fb7e2db922d",
+      "name": "Merge: blog.json aufbauen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "https://api.github.com/repos/ennurkara/schwarz-autoglas/contents/public/data/blog.json",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
-        "options": {
-          "headers": {
-            "values": [
-              { "name": "Accept", "value": "application/vnd.github+json" },
-              { "name": "X-GitHub-Api-Version", "value": "2022-11-28" }
-            ]
-          }
-        }
+        "sendBody": true,
+        "options": {},
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ message: 'content: add weekly blog post ' + $json.newPostId, content: $json.updatedContent, sha: $json.sha }) }}"
       },
-      "id": "node-7",
+      "id": "c3f859bf-01f0-45f3-ac9a-5d7b421911c1",
+      "name": "GitHub: blog.json committen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1952,
+        -160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "OrN0FqpPnPRVx7SO",
+          "name": "Github PAT"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/ennurkara/schwarz-autoglas/contents/sitemap.xml",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "937cbc99-d845-490f-918c-1b0fa0f653f7",
       "name": "GitHub: sitemap.xml lesen",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1560, 300],
-      "credentials": { "httpHeaderAuth": { "id": "github-pat", "name": "GitHub PAT" } }
+      "position": [
+        2176,
+        -160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "OrN0FqpPnPRVx7SO",
+          "name": "Github PAT"
+        }
+      }
     },
     {
       "parameters": {
         "jsCode": "const sitemapRaw = $input.first().json;\nconst sitemapXml = Buffer.from(sitemapRaw.content, 'base64').toString('utf-8');\nconst { newPostId, newPostDate } = $('Merge: blog.json aufbauen').first().json;\nconst newEntry = `  <url>\\n    <loc>https://schwarz-autoglas.de/blog.html#${newPostId}</loc>\\n    <lastmod>${newPostDate}</lastmod>\\n    <changefreq>weekly</changefreq>\\n    <priority>0.7</priority>\\n  </url>`;\nconst updated = sitemapXml.replace('</urlset>', newEntry + '\\n</urlset>');\nconst updatedContent = Buffer.from(updated).toString('base64');\nreturn [{ json: { updatedContent, sha: sitemapRaw.sha } }];"
       },
-      "id": "node-8-code",
+      "id": "0d32dd1c-c4b3-43d1-978a-3e035c1f2815",
       "name": "Sitemap: URL einfügen",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1780, 300]
+      "position": [
+        2384,
+        -160
+      ]
     },
     {
       "parameters": {
         "method": "PUT",
-        "url": "https://api.github.com/repos/={{ $vars.GITHUB_OWNER }}/schwarz-autoglas/contents/sitemap.xml",
+        "url": "https://api.github.com/repos/ennurkara/schwarz-autoglas/contents/sitemap.xml",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
-        "contentType": "json",
-        "body": {
-          "values": [
-            { "name": "message", "value": "=seo: update sitemap with new blog post" },
-            { "name": "content", "value": "={{ $json.updatedContent }}" },
-            { "name": "sha", "value": "={{ $json.sha }}" }
-          ]
-        },
-        "options": {
-          "headers": {
-            "values": [
-              { "name": "Accept", "value": "application/vnd.github+json" },
-              { "name": "X-GitHub-Api-Version", "value": "2022-11-28" }
-            ]
-          }
-        }
+        "options": {},
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ message: 'seo: update sitemap with new blog post', content: $json.updatedContent, sha: $json.sha }) }}"
       },
-      "id": "node-8",
+      "id": "05015cfe-2c34-48f3-9421-3e5a8a2a6521",
       "name": "GitHub: sitemap.xml committen",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2000, 300],
-      "credentials": { "httpHeaderAuth": { "id": "github-pat", "name": "GitHub PAT" } }
+      "position": [
+        2608,
+        -160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "OrN0FqpPnPRVx7SO",
+          "name": "Github PAT"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ model: 'gpt-4o', max_tokens: 2000, messages: [{ role: 'system', content: 'Du bist ein SEO-Texter für Schwarz Autoglas Rosenheim, einen mobilen Autoglas-Service im Raum Rosenheim (Bayern). Du schreibst präzise, hilfreiche Blog-Posts auf Deutsch. Wichtige SEO-Keywords: Autoglas Rosenheim, Steinschlag, Windschutzscheibe reparieren, mobiler Autoglas-Service, Scheibentausch, ADAS-Kalibrierung, Teilkasko. Gib IMMER nur valides JSON zurück - kein Text davor oder danach, keine Markdown-Codeblöcke.' }, { role: 'user', content: 'Schreibe einen neuen Blog-Post für Schwarz Autoglas. Kategorie: ' + $json.nextCategory + '. Aktueller Monat: ' + $json.currentMonth + '. Bereits vorhandene Titel (bitte nicht wiederholen): ' + JSON.stringify($json.existingTitles) + '. Der Content soll 400-600 Wörter haben, Abschnitte als h2 Tags, Absätze als p Tags. Datum heute: ' + $json.today + '. Gib dieses JSON-Objekt zurück: {id: kebab-case-slug, title: Titel, date: ' + $json.today + ', category: ' + $json.nextCategory + ', excerpt: Max 160 Zeichen kein HTML, content: HTML mit p und h2 Tags, imageAlt: Short English description of the ideal photo scene for DALL-E image generation (photorealistic automotive photography), tags: [keyword1, keyword2, keyword3]}' }] }) }}",
+        "options": {}
+      },
+      "id": "608760ad-38a8-4e62-b9b2-9e3ef5db94a7",
+      "name": "ChatGPT: Post generieren",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        848,
+        -160
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "r7IFFNH731vRdBWY",
+          "name": "Open AI"
+        }
+      }
     }
   ],
   "connections": {
-    "Montags 08:00": { "main": [[{ "node": "GitHub: blog.json lesen", "type": "main", "index": 0 }]] },
-    "GitHub: blog.json lesen": { "main": [[{ "node": "Parse blog.json", "type": "main", "index": 0 }]] },
-    "Parse blog.json": { "main": [[{ "node": "Claude: Post generieren", "type": "main", "index": 0 }]] },
-    "Claude: Post generieren": { "main": [[{ "node": "Merge: blog.json aufbauen", "type": "main", "index": 0 }]] },
-    "Merge: blog.json aufbauen": { "main": [[{ "node": "GitHub: blog.json committen", "type": "main", "index": 0 }]] },
-    "GitHub: blog.json committen": { "main": [[{ "node": "GitHub: sitemap.xml lesen", "type": "main", "index": 0 }]] },
-    "GitHub: sitemap.xml lesen": { "main": [[{ "node": "Sitemap: URL einfügen", "type": "main", "index": 0 }]] },
-    "Sitemap: URL einfügen": { "main": [[{ "node": "GitHub: sitemap.xml committen", "type": "main", "index": 0 }]] }
+    "Montags 08:00": {
+      "main": [
+        [
+          {
+            "node": "GitHub: blog.json lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: blog.json lesen": {
+      "main": [
+        [
+          {
+            "node": "Parse blog.json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse blog.json": {
+      "main": [
+        [
+          {
+            "node": "ChatGPT: Post generieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse ChatGPT Post": {
+      "main": [
+        [
+          {
+            "node": "DALL-E: Bild generieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DALL-E: Bild generieren": {
+      "main": [
+        [
+          {
+            "node": "GitHub: Bild committen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: Bild committen": {
+      "main": [
+        [
+          {
+            "node": "Merge: blog.json aufbauen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge: blog.json aufbauen": {
+      "main": [
+        [
+          {
+            "node": "GitHub: blog.json committen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: blog.json committen": {
+      "main": [
+        [
+          {
+            "node": "GitHub: sitemap.xml lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: sitemap.xml lesen": {
+      "main": [
+        [
+          {
+            "node": "Sitemap: URL einfügen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sitemap: URL einfügen": {
+      "main": [
+        [
+          {
+            "node": "GitHub: sitemap.xml committen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatGPT: Post generieren": {
+      "main": [
+        [
+          {
+            "node": "Parse ChatGPT Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "active": false,
-  "settings": { "executionOrder": "v1" },
-  "tags": [{ "name": "seo" }, { "name": "automation" }]
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "tags": [
+    {
+      "name": "seo"
+    },
+    {
+      "name": "automation"
+    }
+  ]
 }

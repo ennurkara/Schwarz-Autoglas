@@ -4,7 +4,7 @@
 
 - n8n-Instanz (selbst gehostet oder n8n Cloud)
 - GitHub Personal Access Token (PAT)
-- Anthropic API Key
+- OpenAI API Key
 
 ## Schritt 1: GitHub PAT erstellen
 
@@ -21,11 +21,11 @@
 - Header Name: `Authorization`
 - Header Value: `Bearer <DEIN_TOKEN>`
 
-### Anthropic API Key
+### OpenAI API Key
 - n8n → Credentials → New → HTTP Header Auth
-- Name: `Anthropic API Key`
-- Header Name: `x-api-key`
-- Header Value: `<DEIN_ANTHROPIC_KEY>`
+- Name: `OpenAI API Key`
+- Header Name: `Authorization`
+- Header Value: `Bearer <DEIN_OPENAI_KEY>`
 
 ## Schritt 3: GITHUB_OWNER Variable setzen
 
@@ -37,18 +37,26 @@
 
 1. n8n → Workflows → Import from file
 2. Datei wählen: `docs/n8n/weekly-blog-workflow.json`
-3. Workflow öffnen → Credentials in Nodes prüfen (GitHub PAT + Anthropic Key müssen zugewiesen sein)
+3. Workflow öffnen → Credentials in Nodes prüfen (GitHub PAT + OpenAI Key müssen zugewiesen sein)
 
 ## Schritt 5: Testlauf
 
 1. Workflow öffnen → oben rechts "Test workflow" klicken
 2. Node-Outputs einzeln prüfen:
-   - Node 2: Gibt `content` (base64) und `sha` zurück ✓
-   - Node 3: Gibt `existingTitles`, `nextCategory`, `today` zurück ✓
-   - Node 4: Claude gibt valides JSON zurück ✓
-   - Node 5: `updatedContent` ist base64-encoded ✓
-   - Node 6: GitHub antwortet mit `commit.sha` ✓
-   - Node 8: sitemap.xml enthält neue URL ✓
+
+| Node | Erwartet | Hinweis |
+|------|----------|---------|
+| GitHub: blog.json lesen | `content` (base64), `sha` | GET ohne Body |
+| Parse blog.json | `existingTitles`, `nextCategory`, `today` | Code Node |
+| ChatGPT: Post generieren | `choices[0].message.content` = JSON | `imageAlt` in English für DALL-E |
+| Parse ChatGPT Post | `newPost`, `imagePrompt` | Code Node |
+| DALL-E: Bild generieren | `data[0].b64_json` | ~10–20s, 1792×1024 PNG |
+| GitHub: Bild committen | `commit.sha` | Erstellt `public/images/blog/{id}.png` |
+| Merge: blog.json aufbauen | `updatedContent`, `sha`, `newPostId` | Fügt `image` Feld hinzu |
+| GitHub: blog.json committen | `commit.sha` | Blog-Post + Bild-Pfad gespeichert |
+| GitHub: sitemap.xml lesen | `content` (base64), `sha` | GET ohne Body |
+| Sitemap: URL einfügen | `updatedContent` | Neue URL eingefügt |
+| GitHub: sitemap.xml committen | `commit.sha` | Sitemap aktualisiert |
 
 ## Schritt 6: Aktivieren
 
