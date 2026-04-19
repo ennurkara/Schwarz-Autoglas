@@ -186,6 +186,8 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
+    .load-more-btn { background: transparent; border: 1px solid var(--gray-600); color: var(--white); padding: .75rem 2rem; font-size: .9rem; font-weight: 500; cursor: pointer; transition: border-color .2s, background .2s; font-family: inherit; }
+    .load-more-btn:hover { border-color: var(--accent); background: rgba(200,169,110,.08); }
   </style>
 </head>
 <body>
@@ -299,6 +301,8 @@
     // ── BLOG ENGINE ──
     const BLOG_DATA_URL = '/public/data/blog.json';
     let allPosts = [];
+    const POSTS_PER_PAGE = 6;
+    let visibleCount = POSTS_PER_PAGE;
     let activeCategory = 'all';
 
     const CATEGORY_LABELS = {
@@ -405,9 +409,18 @@
         ? allPosts
         : allPosts.filter(p => p.category === activeCategory);
 
-      const gridHTML = filtered.length
-        ? `<div class="blog-grid">${filtered.map(renderCardHTML).join('')}</div>`
+      const visible = filtered.slice(0, visibleCount);
+      const hasMore = filtered.length > visibleCount;
+
+      const gridHTML = visible.length
+        ? `<div class="blog-grid">${visible.map(renderCardHTML).join('')}</div>`
         : `<div class="blog-empty"><p>Keine Beiträge in dieser Kategorie.</p></div>`;
+
+      const loadMoreHTML = hasMore
+        ? `<div style="text-align:center;margin-top:2.5rem;">
+            <button class="load-more-btn" id="loadMoreBtn">Weitere Artikel laden (${filtered.length - visibleCount} verbleibend)</button>
+           </div>`
+        : '';
 
       document.getElementById('blog-main').innerHTML = `
         <div class="blog-header">
@@ -420,14 +433,24 @@
         <div class="container" style="padding-bottom:5rem;">
           <div class="blog-filters" id="blogFilters">${renderFilters()}</div>
           ${gridHTML}
+          ${loadMoreHTML}
         </div>`;
 
       document.getElementById('blogFilters').addEventListener('click', e => {
         const btn = e.target.closest('.filter-btn');
         if (!btn) return;
         activeCategory = btn.dataset.category;
+        visibleCount = POSTS_PER_PAGE;
         renderListing();
       });
+
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+          visibleCount += POSTS_PER_PAGE;
+          renderListing();
+        });
+      }
     }
 
     function renderPost(postId) {
@@ -478,6 +501,7 @@
       if (postId) {
         renderPost(postId);
       } else {
+        visibleCount = POSTS_PER_PAGE;
         renderListing();
       }
     }
