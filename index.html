@@ -2348,23 +2348,27 @@
           body: JSON.stringify(formData),
         });
 
-        if (res.ok) {
+        let payload = {};
+        try { payload = await res.json(); } catch (_) { /* not JSON */ }
+
+        if (res.ok && payload.success) {
           btn.textContent = 'Anfrage gesendet ✓';
           btn.style.opacity = '0.6';
         } else {
-          throw new Error('Server error');
+          const serverMsg = (payload && payload.error) ? payload.error : `Fehler (${res.status})`;
+          throw new Error(serverMsg);
         }
-      } catch {
-        btn.innerHTML = originalHTML;
+      } catch (err) {
+        const serverMsg = (err && err.message) ? err.message : 'Bitte erneut versuchen';
         btn.disabled = false;
         btn.style.cursor = '';
         btn.style.opacity = '';
         btn.style.background = '#8b2020';
-        btn.textContent = 'Fehler – bitte erneut versuchen';
+        btn.textContent = serverMsg.length > 60 ? 'Fehler – bitte erneut versuchen' : serverMsg;
         setTimeout(() => {
           btn.innerHTML = originalHTML;
           btn.style.background = '';
-        }, 4000);
+        }, 5000);
       }
     });
   </script>
