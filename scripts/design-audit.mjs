@@ -282,9 +282,11 @@ async function testBlogPost(ctx, vp) {
   await cta.scrollIntoViewIfNeeded();
   if (!(await cta.isVisible())) log('HIGH', vp.name, 'blog-post', 'CTA card not visible');
 
-  // Click "back to all posts" — should link to /blog.html
+  // Click "back to all posts" — Netlify pretty-URLs may strip .html so accept both
   const backHref = await page.locator('.post-back').first().getAttribute('href');
-  if (backHref !== '/blog.html') log('LOW', vp.name, 'blog-post', `post-back href: "${backHref}" (expected /blog.html)`);
+  if (backHref !== '/blog.html' && backHref !== '/blog') {
+    log('LOW', vp.name, 'blog-post', `post-back href: "${backHref}" (expected /blog or /blog.html)`);
+  }
 
   await page.close();
 }
