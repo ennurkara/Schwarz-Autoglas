@@ -51,15 +51,19 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; }
     body { font-family: 'Inter', sans-serif; background: #080808; color: #e5e5e5; line-height: 1.7; padding: 6rem 2rem 4rem; }
     .container { max-width: 680px; margin: 0 auto; }
-    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; color: #fff; }
-    h2 { font-size: .75rem; font-weight: 700; margin: 2rem 0 .5rem; color: #c8a96e; letter-spacing: .06em; text-transform: uppercase; }
-    p, address { font-size: .95rem; color: #aaa; font-style: normal; }
-    a { color: #c8a96e; text-decoration: none; }
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; color: #fff; overflow-wrap: anywhere; }
+    h2 { font-size: .75rem; font-weight: 700; margin: 2rem 0 .5rem; color: #c8a96e; letter-spacing: .06em; text-transform: uppercase; overflow-wrap: anywhere; }
+    p, address { font-size: .95rem; color: #aaa; font-style: normal; overflow-wrap: anywhere; }
+    a { color: #c8a96e; text-decoration: none; overflow-wrap: anywhere; }
     a:hover { text-decoration: underline; }
     .back { display: inline-flex; align-items: center; gap: .4rem; color: #888; font-size: .85rem; margin-bottom: 3rem; text-decoration: none; }
     .back:hover { color: #fff; }
+    @media (max-width: 480px) {
+      body { padding: 5rem 1.25rem 3rem; }
+    }
   </style>
 </head>
 <body>

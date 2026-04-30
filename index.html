@@ -950,10 +950,59 @@
       border-radius: 6px;
       overflow: hidden;
       background: var(--gray-900);
+      position: relative;
+      min-height: 240px;
     }
 
     .contact-map-embed iframe {
       display: block;
+    }
+
+    .map-consent {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      min-height: 240px;
+    }
+
+    .map-consent-text {
+      color: var(--gray-300);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-width: 380px;
+    }
+
+    .map-consent-text a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .map-consent-btn {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.7rem 1.4rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .map-consent-btn:hover {
+      background: var(--gray-100);
+      transform: translateY(-1px);
+    }
+
+    .map-consent-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .contact-map-buttons {
@@ -2054,16 +2103,15 @@
                 <p class="contact-item-value">Waldfriedstraße 3a, 83024 Rosenheim</p>
               </div>
             </div>
-            <div class="contact-map-embed">
-              <iframe
-                src="https://maps.google.com/maps?q=Waldfriedstra%C3%9Fe+3a+83024+Rosenheim&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="240"
-                style="border:0;border-radius:6px;filter:grayscale(.4) contrast(.95);"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Standort Schwarz Autoglas, Waldfriedstraße 3a, 83024 Rosenheim"
-                aria-label="Karte des Standorts von Schwarz Autoglas in Rosenheim"></iframe>
+            <div class="contact-map-embed" id="mapWrapper" data-loaded="false">
+              <div class="map-consent" id="mapConsent">
+                <p class="map-consent-text">
+                  Die Karte wird von <strong>Google&nbsp;Maps</strong> geladen. Beim Klick werden Daten (u.&nbsp;a. Ihre IP-Adresse) an Google&nbsp;LLC (USA) übermittelt. Details in unserer <a href="datenschutz.html#google-maps">Datenschutzerklärung</a>.
+                </p>
+                <button type="button" id="mapConsentBtn" class="map-consent-btn" aria-controls="mapWrapper">
+                  Karte laden
+                </button>
+              </div>
             </div>
             <div class="contact-map-buttons">
               <a id="mapBtn" href="https://www.google.com/maps/dir/?api=1&destination=Waldfriedstraße+3a+83024+Rosenheim" target="_blank" rel="noopener noreferrer" class="map-btn map-btn-google" aria-label="Wegbeschreibung in Google Maps öffnen">
@@ -2118,7 +2166,7 @@
             <textarea id="message" name="message" placeholder="Kurze Beschreibung des Schadens oder weiterer Informationen …"></textarea>
           </div>
           <div class="form-privacy">
-            Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß unserer <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> zu.
+            Ihre Angaben werden ausschließlich zur Bearbeitung Ihrer Anfrage genutzt (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO – Vertragsanbahnung). Details: <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutz</a>.
           </div>
           <div class="form-submit">
             <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
@@ -2320,6 +2368,29 @@
         setTimeout(closeMenu, 150);
       });
     });
+
+    // ── Google Maps Two-Click consent (DSGVO/TTDSG-konform)
+    // Karte wird erst nach aktivem Klick geladen, vorher gehen keine Daten an Google.
+    const mapConsentBtn = document.getElementById('mapConsentBtn');
+    if (mapConsentBtn) {
+      mapConsentBtn.addEventListener('click', () => {
+        const wrapper = document.getElementById('mapWrapper');
+        const consent = document.getElementById('mapConsent');
+        if (!wrapper || wrapper.dataset.loaded === 'true') return;
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://maps.google.com/maps?q=Waldfriedstra%C3%9Fe+3a+83024+Rosenheim&t=&z=15&ie=UTF8&iwloc=&output=embed';
+        iframe.width = '100%';
+        iframe.height = '240';
+        iframe.style.cssText = 'border:0;border-radius:6px;filter:grayscale(.4) contrast(.95);';
+        iframe.loading = 'lazy';
+        iframe.referrerPolicy = 'no-referrer-when-downgrade';
+        iframe.title = 'Standort Schwarz Autoglas, Waldfriedstraße 3a, 83024 Rosenheim';
+        iframe.setAttribute('aria-label', 'Karte des Standorts von Schwarz Autoglas in Rosenheim');
+        consent.remove();
+        wrapper.appendChild(iframe);
+        wrapper.dataset.loaded = 'true';
+      });
+    }
 
     // ── Single map button: switch to Apple Maps on iOS/iPadOS
     const isAppleDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);

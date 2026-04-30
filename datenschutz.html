@@ -51,15 +51,19 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; }
     body { font-family: 'Inter', sans-serif; background: #080808; color: #e5e5e5; line-height: 1.7; padding: 6rem 2rem 4rem; }
     .container { max-width: 680px; margin: 0 auto; }
-    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; color: #fff; }
-    h2 { font-size: .75rem; font-weight: 700; margin: 2rem 0 .5rem; color: #c8a96e; letter-spacing: .06em; text-transform: uppercase; }
-    p { font-size: .95rem; color: #aaa; margin-bottom: .75rem; }
-    a { color: #c8a96e; text-decoration: none; }
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; color: #fff; overflow-wrap: anywhere; }
+    h2 { font-size: .75rem; font-weight: 700; margin: 2rem 0 .5rem; color: #c8a96e; letter-spacing: .06em; text-transform: uppercase; overflow-wrap: anywhere; }
+    p { font-size: .95rem; color: #aaa; margin-bottom: .75rem; overflow-wrap: anywhere; }
+    a { color: #c8a96e; text-decoration: none; overflow-wrap: anywhere; }
     a:hover { text-decoration: underline; }
     .back { display: inline-flex; align-items: center; gap: .4rem; color: #888; font-size: .85rem; margin-bottom: 3rem; text-decoration: none; }
     .back:hover { color: #fff; }
+    @media (max-width: 480px) {
+      body { padding: 5rem 1.25rem 3rem; }
+    }
   </style>
 </head>
 <body>
@@ -81,7 +85,7 @@
 
     <h2>2. Hosting</h2>
     <p>
-      Diese Website wird gehostet von <strong>Netlify, Inc.</strong>, 44 Montgomery Street, Suite 300, San Francisco, CA 94104, USA. Netlify verarbeitet beim Aufruf der Website technisch notwendige Daten (IP-Adresse, Zeitstempel, aufgerufene URL). Grundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). Netlify hat EU-Standardvertragsklauseln (SCCs) unterzeichnet. Weitere Informationen: <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">netlify.com/privacy</a>.
+      Diese Website wird gehostet von <strong>Netlify, Inc.</strong>, 44 Montgomery Street, Suite 300, San Francisco, CA 94104, USA. Netlify verarbeitet beim Aufruf der Website technisch notwendige Daten (IP-Adresse, Zeitstempel, aufgerufene URL). Grundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer stabilen, sicheren Bereitstellung der Website). Netlify ist unter dem EU-US Data Privacy Framework zertifiziert (Adäquanzbeschluss der EU-Kommission vom 10.07.2023, Art. 45 DSGVO) und verwendet zusätzlich EU-Standardvertragsklauseln. Weitere Informationen: <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">netlify.com/privacy</a>.
     </p>
 
     <h2>3. Domain &amp; E-Mail</h2>
@@ -107,9 +111,21 @@
       Die Startseite enthält ein Hintergrundvideo, das automatisch und ohne Ton abgespielt wird. Das Video wird von unserem eigenen Server geladen. Es werden keine Daten an externe Videoplattformen übermittelt.
     </p>
 
-    <h2>7. Externe Links (Google Maps &amp; Apple Maps)</h2>
+    <h2 id="google-maps">7. Google Maps &amp; Apple Maps</h2>
     <p>
-      Auf unserer Kontaktseite bieten wir Links zu Google Maps und Apple Maps an, um Ihnen die Routenplanung zu erleichtern. Beim Klick auf diese Links verlassen Sie unsere Website und werden zu den jeweiligen Diensten weitergeleitet. Erst ab dem Klick werden Daten an Google LLC bzw. Apple Inc. übermittelt. Eine Einbindung von Kartenmaterial direkt auf unserer Website findet nicht statt.
+      Im Kontaktbereich bieten wir Ihnen optional eine eingebettete Google-Maps-Karte sowie Routenplanungs-Links zu Google Maps bzw. Apple Maps an.
+    </p>
+    <p>
+      <strong>Eingebettete Karte (Two-Click-Lösung):</strong> Die Karte wird <em>nicht</em> automatisch geladen. Erst nach Ihrem aktiven Klick auf die Schaltfläche „Karte laden" wird der iframe von Google Maps angefordert und in die Seite integriert. Vor diesem Klick werden keinerlei Daten an Google übermittelt.
+    </p>
+    <p>
+      Sobald Sie die Karte geladen oder einen der Routenplanungs-Links angeklickt haben, werden Daten (insbesondere Ihre IP-Adresse, Browserkennung, Spracheinstellung sowie ggf. Cookies) an die Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA, bzw. die Apple Inc., One Apple Park Way, Cupertino, CA 95014, USA, übermittelt.
+    </p>
+    <p>
+      <strong>Rechtsgrundlage</strong> für die Übermittlung ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO sowie § 25 Abs. 1 TTDSG, die Sie durch den Klick auf „Karte laden" oder den jeweiligen Maps-Link erteilen. Sie können Ihre Einwilligung jederzeit für die Zukunft widerrufen, indem Sie die Seite neu laden, ohne die Karte erneut zu aktivieren.
+    </p>
+    <p>
+      <strong>Datenübertragung in die USA:</strong> Sowohl Google LLC als auch Apple Inc. sind unter dem EU-US Data Privacy Framework zertifiziert (Adäquanzbeschluss der EU-Kommission vom 10.07.2023, Art. 45 DSGVO). Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google-Datenschutz</a>, <a href="https://www.apple.com/legal/privacy/de-ww/" target="_blank" rel="noopener noreferrer">Apple-Datenschutz</a>.
     </p>
 
     <h2>8. Verschlüsselung</h2>
