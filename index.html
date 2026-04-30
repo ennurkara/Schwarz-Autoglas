@@ -711,6 +711,225 @@
       margin-bottom: 3.5rem;
     }
 
+    /* ── REVIEWS SLIDESHOW ── */
+    .reviews-slideshow {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .reviews-track {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .reviews-viewport {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
+      will-change: transform;
+    }
+
+    .reviews-viewport.no-anim {
+      transition: none;
+    }
+
+    .review-slide {
+      flex: 0 0 100%;
+      min-width: 0;
+      padding: 0 .5rem;
+      box-sizing: border-box;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reviews-viewport { transition: none; }
+    }
+
+    .review-card {
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      padding: 2.25rem 2rem 2rem;
+      border-radius: 6px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .review-card .quote-icon {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.75rem;
+      width: 36px;
+      height: 36px;
+      color: var(--accent);
+      opacity: .25;
+    }
+
+    .review-card .stars {
+      display: flex;
+      gap: 3px;
+    }
+
+    .review-card .review-text {
+      font-size: 1rem;
+      color: var(--gray-200);
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    .review-card .review-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--gray-800);
+    }
+
+    .review-card .review-meta .author-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gray-700), var(--gray-800));
+      border: 1px solid var(--gray-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .review-card .review-author-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .review-card .review-source {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 2px;
+    }
+
+    .review-card .review-source svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Slideshow controls */
+    .reviews-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .reviews-arrows {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .reviews-arrow {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid var(--gray-700);
+      color: var(--gray-300);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+      font-family: inherit;
+    }
+
+    .reviews-arrow:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--white);
+      background: rgba(200, 169, 110, .08);
+    }
+
+    .reviews-arrow:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .reviews-arrow:disabled {
+      opacity: .3;
+      cursor: not-allowed;
+    }
+
+    .reviews-arrow svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .reviews-dots {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .reviews-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray-700);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s, width 0.3s;
+    }
+
+    .reviews-dot:hover {
+      background: var(--gray-500);
+    }
+
+    .reviews-dot:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .reviews-dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    .review-attribution {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--gray-500);
+    }
+
+    .review-attribution a {
+      color: var(--gray-400);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .review-attribution a:hover {
+      color: var(--white);
+    }
+
+    @media (max-width: 640px) {
+      .review-card { padding: 1.75rem 1.25rem 1.25rem; min-height: 320px; }
+      .review-card .quote-icon { width: 28px; height: 28px; top: 1rem; right: 1rem; }
+      .review-card .review-text { font-size: 0.95rem; line-height: 1.7; }
+      .reviews-arrows { display: flex; }
+    }
+
+    /* legacy grid kept hidden for graceful degradation; JS removes it once slideshow renders */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1923,9 +2142,20 @@
           <svg class="star" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
           <svg class="star" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
         </div>
-        <span class="rating-badge-value">5,0</span>
-        <span class="rating-badge-text">aus 3 echten Google-Bewertungen</span>
+        <span class="rating-badge-value" id="ratingValue">5,0</span>
+        <span class="rating-badge-text" id="ratingBadgeText">aus 14 echten Google-Bewertungen</span>
       </div>
+      <!-- Slideshow is built progressively by JS. <noscript> + the legacy grid below are SEO/no-JS fallback. -->
+      <div
+        id="reviewsSlideshow"
+        class="reviews-slideshow"
+        role="region"
+        aria-roledescription="Karussell"
+        aria-label="Google-Bewertungen"
+        hidden
+      ></div>
+
+      <noscript>
       <div class="testimonials-grid" role="list">
 
         <article class="testimonial-card" role="listitem">
@@ -1980,6 +2210,11 @@
         </article>
 
       </div>
+      </noscript>
+
+      <p class="review-attribution">
+        Echte Bewertungen von <a href="https://g.page/CU_EnW35gHmZEAE" target="_blank" rel="noopener noreferrer">Google</a>
+      </p>
 
       <!-- Google Bewertungs-Button -->
       <div style="text-align:center;margin-top:3rem;">
@@ -2405,6 +2640,220 @@
       });
     }
 
+    // ── Reviews Slideshow ──────────────────────────────────────────
+    (async function initReviewsSlideshow() {
+      const root = document.getElementById('reviewsSlideshow');
+      if (!root) return;
+
+      let data;
+      try {
+        const res = await fetch('/public/data/reviews.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        data = await res.json();
+      } catch (err) {
+        console.warn('reviews.json failed, slideshow disabled:', err);
+        return; // noscript fallback grid stays visible
+      }
+
+      // Update rating badge from aggregate data so it stays in sync with reviews.json
+      const totalCount = data.aggregate?.reviewCount ?? data.aggregate?.ratingCount ?? (data.reviews || []).length;
+      const ratingValue = data.aggregate?.ratingValue;
+      const ratingBadgeText = document.getElementById('ratingBadgeText');
+      const ratingValueEl = document.getElementById('ratingValue');
+      if (ratingBadgeText && totalCount) {
+        ratingBadgeText.textContent = `aus ${totalCount} echten Google-Bewertungen`;
+      }
+      if (ratingValueEl && typeof ratingValue === 'number') {
+        ratingValueEl.textContent = ratingValue.toString().replace('.', ',');
+      }
+
+      const reviews = (data.reviews || []).filter(r => r && r.text && r.text.length > 5);
+      if (reviews.length === 0) return;
+
+      // Sort newest-first
+      reviews.sort((a, b) => new Date(b.datePublished || 0) - new Date(a.datePublished || 0));
+
+      const STAR_PATH = 'M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z';
+
+      function escapeHtml(s) {
+        return String(s ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function initialsFor(author) {
+        if (!author) return '–';
+        return author.split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 2)
+          .map(p => p[0]?.toUpperCase() || '')
+          .join('') || '–';
+      }
+
+      function formatDate(iso) {
+        if (!iso) return '';
+        try {
+          return new Date(iso).toLocaleDateString('de-DE', { year: 'numeric', month: 'long' });
+        } catch { return ''; }
+      }
+
+      function starsHTML(count) {
+        const n = Math.max(0, Math.min(5, parseInt(count, 10) || 5));
+        return Array.from({ length: n }, () =>
+          `<svg class="star" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="${STAR_PATH}"/></svg>`
+        ).join('');
+      }
+
+      function renderSlide(r, index, total) {
+        const initials = escapeHtml(r.initials || initialsFor(r.author));
+        const author = escapeHtml(r.author || 'Anonym');
+        const text = escapeHtml(r.text);
+        const dateLabel = formatDate(r.datePublished);
+        return `
+          <div class="review-slide" role="group" aria-roledescription="Bewertung" aria-label="Bewertung ${index + 1} von ${total}">
+            <article class="review-card">
+              <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M7.17 6C5.4 6 4 7.4 4 9.17v3.66c0 1.77 1.4 3.17 3.17 3.17.46 0 .83-.37.83-.83 0-1.4 1.13-2.5 2.5-2.5.46 0 .83-.37.83-.83V6.83c0-.46-.37-.83-.83-.83H7.17zm9.66 0c-1.77 0-3.17 1.4-3.17 3.17v3.66c0 1.77 1.4 3.17 3.17 3.17.46 0 .83-.37.83-.83 0-1.4 1.13-2.5 2.5-2.5.46 0 .83-.37.83-.83V6.83c0-.46-.37-.83-.83-.83h-3.33z"/>
+              </svg>
+              <div class="stars" aria-label="${r.rating || 5} von 5 Sternen">${starsHTML(r.rating)}</div>
+              <p class="review-text">„${text}"</p>
+              <div class="review-meta">
+                <div class="author-avatar" aria-hidden="true">${initials}</div>
+                <div>
+                  <p class="review-author-name">${author}</p>
+                  <p class="review-source">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                    Google${dateLabel ? ' &middot; ' + dateLabel : ''}
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>`;
+      }
+
+      const total = reviews.length;
+      root.innerHTML = `
+        <div class="reviews-track" aria-live="polite">
+          <div class="reviews-viewport">
+            ${reviews.map((r, i) => renderSlide(r, i, total)).join('')}
+          </div>
+        </div>
+        <div class="reviews-nav">
+          <div class="reviews-arrows">
+            <button class="reviews-arrow" type="button" data-action="prev" aria-label="Vorherige Bewertung">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="reviews-arrow" type="button" data-action="next" aria-label="Nächste Bewertung">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="reviews-dots" role="tablist" aria-label="Bewertung wählen">
+            ${reviews.map((_, i) => `<button class="reviews-dot${i === 0 ? ' active' : ''}" type="button" role="tab" aria-label="Bewertung ${i + 1} anzeigen" aria-selected="${i === 0}" data-index="${i}"></button>`).join('')}
+          </div>
+        </div>`;
+
+      // Hide noscript legacy grid (it shouldn't render at all if JS runs, but safety)
+      const legacy = document.querySelector('.testimonials-grid');
+      if (legacy) legacy.style.display = 'none';
+
+      root.hidden = false;
+
+      const viewport = root.querySelector('.reviews-viewport');
+      const dots = Array.from(root.querySelectorAll('.reviews-dot'));
+      const prevBtn = root.querySelector('[data-action="prev"]');
+      const nextBtn = root.querySelector('[data-action="next"]');
+
+      let current = 0;
+      let autoplayId = null;
+      const AUTOPLAY_MS = 7000;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function go(index, opts = {}) {
+        const len = reviews.length;
+        current = ((index % len) + len) % len; // wrap
+        if (opts.noAnim) viewport.classList.add('no-anim');
+        viewport.style.transform = `translateX(-${current * 100}%)`;
+        if (opts.noAnim) requestAnimationFrame(() => requestAnimationFrame(() => viewport.classList.remove('no-anim')));
+        dots.forEach((d, i) => {
+          const active = i === current;
+          d.classList.toggle('active', active);
+          d.setAttribute('aria-selected', String(active));
+        });
+      }
+
+      prevBtn.addEventListener('click', () => { stopAutoplay(); go(current - 1); });
+      nextBtn.addEventListener('click', () => { stopAutoplay(); go(current + 1); });
+      dots.forEach(d => d.addEventListener('click', () => {
+        stopAutoplay();
+        go(parseInt(d.dataset.index, 10));
+      }));
+
+      // Keyboard
+      root.tabIndex = 0;
+      root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft')      { stopAutoplay(); go(current - 1); }
+        else if (e.key === 'ArrowRight'){ stopAutoplay(); go(current + 1); }
+        else if (e.key === 'Home')      { stopAutoplay(); go(0); }
+        else if (e.key === 'End')       { stopAutoplay(); go(reviews.length - 1); }
+      });
+
+      // Touch swipe
+      let touchStartX = null;
+      let touchStartTime = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartTime = Date.now();
+      }, { passive: true });
+      viewport.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dt = Date.now() - touchStartTime;
+        const SWIPE_THRESHOLD = 40;
+        if (Math.abs(dx) > SWIPE_THRESHOLD && dt < 800) {
+          stopAutoplay();
+          go(dx < 0 ? current + 1 : current - 1);
+        }
+        touchStartX = null;
+      }, { passive: true });
+
+      function startAutoplay() {
+        if (prefersReducedMotion) return;
+        if (reviews.length < 2) return;
+        stopAutoplay();
+        autoplayId = setInterval(() => go(current + 1), AUTOPLAY_MS);
+      }
+      function stopAutoplay() {
+        if (autoplayId) { clearInterval(autoplayId); autoplayId = null; }
+      }
+
+      // Pause on hover/focus, resume on leave
+      root.addEventListener('mouseenter', stopAutoplay);
+      root.addEventListener('mouseleave', startAutoplay);
+      root.addEventListener('focusin', stopAutoplay);
+      root.addEventListener('focusout', startAutoplay);
+      // Pause when page is not visible
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopAutoplay();
+        else startAutoplay();
+      });
+
+      // Only autoplay once visible (saves CPU when off-screen)
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+          for (const e of entries) {
+            if (e.isIntersecting) startAutoplay();
+            else stopAutoplay();
+          }
+        }, { threshold: 0.3 });
+        io.observe(root);
+      } else {
+        startAutoplay();
+      }
+    })();
+
     // ── Single map button: switch to Apple Maps on iOS/iPadOS
     const isAppleDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const mapBtn = document.getElementById('mapBtn');
@@ -2649,55 +3098,83 @@
     ],
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": 5.0,
+      "ratingValue": 5,
       "bestRating": 5,
       "worstRating": 1,
-      "ratingCount": 3,
-      "reviewCount": 3
+      "ratingCount": 14,
+      "reviewCount": 14
     },
     "review": [
-      {
-        "@type": "Review",
-        "datePublished": "2025-08-15",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": 5,
-          "bestRating": 5
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Marlene E."
-        },
-        "reviewBody": "Top Arbeit! Scheibe super gewechselt und das Auto danach richtig sauber gemacht. Unkompliziert, schnell und zuverlässig. Wirklich sehr empfehlenswert!"
-      },
-      {
-        "@type": "Review",
-        "datePublished": "2025-06-20",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": 5,
-          "bestRating": 5
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Danijel O."
-        },
-        "reviewBody": "Hab 2 Autos hingebracht, top Service, sehr freundlich und das Auto wird dir komplett innen sauber gemacht, finde ich persönlich sehr schön hat man nicht überall so. Kann ich nur weiterempfehlen."
-      },
-      {
-        "@type": "Review",
-        "datePublished": "2025-04-10",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": 5,
-          "bestRating": 5
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Samet I."
-        },
-        "reviewBody": "Unkomplizierte und schnelle Abwicklung – ein kurzer Anruf genügte, um einen Termin zu vereinbaren. Der Service war hervorragend: sehr professionelles Auftreten und eine ebenso professionelle Ausführung der Arbeit. Zudem sind alle notwendigen Fachgeräte für eine optimale Bearbeitung vorhanden. Absolut empfehlenswert!"
-      }
+          {
+                "@type": "Review",
+                "datePublished": "2026-04-28",
+                "reviewRating": {
+                      "@type": "Rating",
+                      "ratingValue": 5,
+                      "bestRating": 5
+                },
+                "author": {
+                      "@type": "Person",
+                      "name": "Ertugrul K."
+                },
+                "reviewBody": "Schaden am Samstag gemeldet, binnen 48h wurde die Scheibe getauscht\nTop Services"
+          },
+          {
+                "@type": "Review",
+                "datePublished": "2026-04-23",
+                "reviewRating": {
+                      "@type": "Rating",
+                      "ratingValue": 5,
+                      "bestRating": 5
+                },
+                "author": {
+                      "@type": "Person",
+                      "name": "Halil"
+                },
+                "reviewBody": "Ich war bei Schwarz Autoglas und bin wirklich sehr zufrieden. Der Service war schnell, professionell und unkompliziert. Schon bei der Terminvereinbarung lief alles reibungslos, und vor Ort wurde ich freundlich empfangen.Der Austausch meiner Scheibe ging zügig und sauber, und mir wurde alles transparent erklärt. Besonders positiv fand ich, dass auf Details geachtet wurde.\nKlare Empfehlung für alle, die eine zuverlässige und kompetente Autoglas-Reparatur suchen!"
+          },
+          {
+                "@type": "Review",
+                "datePublished": "2026-04-23",
+                "reviewRating": {
+                      "@type": "Rating",
+                      "ratingValue": 5,
+                      "bestRating": 5
+                },
+                "author": {
+                      "@type": "Person",
+                      "name": "Ebyar 2."
+                },
+                "reviewBody": "Sehr nettes und hilfsbereites personal. Kann ich nur weiterempfehlen. Super Service Tip Top"
+          },
+          {
+                "@type": "Review",
+                "datePublished": "2026-04-23",
+                "reviewRating": {
+                      "@type": "Rating",
+                      "ratingValue": 5,
+                      "bestRating": 5
+                },
+                "author": {
+                      "@type": "Person",
+                      "name": "Emir C."
+                },
+                "reviewBody": "Ich war sehr zufrieden. Es ging alles schnell und genau, der Scheibenwechsel hat super geklappt. …"
+          },
+          {
+                "@type": "Review",
+                "datePublished": "2026-04-23",
+                "reviewRating": {
+                      "@type": "Rating",
+                      "ratingValue": 5,
+                      "bestRating": 5
+                },
+                "author": {
+                      "@type": "Person",
+                      "name": "Burak P."
+                },
+                "reviewBody": ""
+          }
     ],
     "sameAs": [
       "https://g.page/CU_EnW35gHmZEAE",

@@ -5,3 +5,5 @@ docs/kundendaten.md
 node_modules/
 screenshots/
 test-results/
+.firecrawl-debug.json
+.scrape-raw.json
