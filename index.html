@@ -7,7 +7,7 @@
   <title>Autoglas Rosenheim – Schwarz Autoglas | Windschutzscheibe</title>
   <link rel="canonical" href="https://schwarz-autoglas.de/" />
   <link rel="preload" href="/public/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/public/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/public/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/public/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/public/images/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon-32.png">
@@ -944,11 +944,24 @@
       font-style: italic;
     }
 
+    .contact-map-embed {
+      margin-top: 1.5rem;
+      border: 1px solid var(--gray-700);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--gray-900);
+    }
+
+    .contact-map-embed iframe {
+      display: block;
+    }
+
     .contact-map-buttons {
       display: flex;
       gap: 0.75rem;
-      margin-top: 1.5rem;
+      margin-top: 0.75rem;
       align-items: flex-start;
+      flex-wrap: wrap;
     }
 
     .map-btn {
@@ -1568,7 +1581,7 @@
   <!-- ── NAVIGATION ── -->
   <nav id="navbar" aria-label="Hauptnavigation">
     <a href="#" class="nav-logo" aria-label="Schwarz Autoglas Startseite">
-      <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img">
+      <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img" width="128" height="32" loading="eager" fetchpriority="high">
     </a>
     <ul class="nav-links" id="navLinks" role="list">
       <li><a href="#services">Leistungen</a></li>
@@ -1626,7 +1639,7 @@
     <div class="trust-bar-inner">
       <div class="trust-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        Zertifizierte Monteure
+        Geschulte Monteure
       </div>
       <div class="trust-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -1776,8 +1789,8 @@
             <li class="why-item">
               <svg class="why-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
               <div>
-                <p class="why-item-title">Zertifizierter Fachbetrieb</p>
-                <p class="why-item-text">Unsere Monteure sind TÜV-zertifiziert und regelmäßig in den neuesten Fahrzeug- und ADAS-Technologien geschult.</p>
+                <p class="why-item-title">Geschulte Fachkräfte</p>
+                <p class="why-item-text">Unser Team verfügt über mehrjährige Erfahrung im Autoglasservice und bildet sich kontinuierlich in modernster Fahrzeug- und ADAS-Technik weiter.</p>
               </div>
             </li>
             <li class="why-item">
@@ -1849,7 +1862,7 @@
           <svg class="star" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
         </div>
         <span class="rating-badge-value">5,0</span>
-        <span class="rating-badge-text">aus 10 Bewertungen bei Google</span>
+        <span class="rating-badge-text">aus 3 echten Google-Bewertungen</span>
       </div>
       <div class="testimonials-grid" role="list">
 
@@ -1955,8 +1968,8 @@
         <div class="service-area-cities-label">Regelm&auml;&szlig;ige Einsatzgebiete</div>
         <ul class="service-area-cities" role="list">
           <li class="is-primary">Rosenheim</li>
-          <li class="is-secondary">Bad Endorf</li>
-          <li class="is-secondary">Prien am Chiemsee</li>
+          <li class="is-secondary"><a href="autoglas-bad-endorf.html" style="color:inherit;text-decoration:underline;text-decoration-color:var(--gray-600);text-underline-offset:3px;">Bad Endorf</a></li>
+          <li class="is-secondary"><a href="autoglas-prien-am-chiemsee.html" style="color:inherit;text-decoration:underline;text-decoration-color:var(--gray-600);text-underline-offset:3px;">Prien am Chiemsee</a></li>
           <li class="is-secondary">Kolbermoor</li>
           <li class="is-secondary">Brannenburg</li>
           <li class="is-more">+ weitere Orte auf Anfrage</li>
@@ -2041,10 +2054,25 @@
                 <p class="contact-item-value">Waldfriedstraße 3a, 83024 Rosenheim</p>
               </div>
             </div>
+            <div class="contact-map-embed">
+              <iframe
+                src="https://maps.google.com/maps?q=Waldfriedstra%C3%9Fe+3a+83024+Rosenheim&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="240"
+                style="border:0;border-radius:6px;filter:grayscale(.4) contrast(.95);"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Standort Schwarz Autoglas, Waldfriedstraße 3a, 83024 Rosenheim"
+                aria-label="Karte des Standorts von Schwarz Autoglas in Rosenheim"></iframe>
+            </div>
             <div class="contact-map-buttons">
-              <a id="mapBtn" href="https://www.google.com/maps/dir/?api=1&destination=Waldfriedstraße+3a+83024+Rosenheim" target="_blank" rel="noopener noreferrer" class="map-btn map-btn-google" aria-label="Maps öffnen">
+              <a id="mapBtn" href="https://www.google.com/maps/dir/?api=1&destination=Waldfriedstraße+3a+83024+Rosenheim" target="_blank" rel="noopener noreferrer" class="map-btn map-btn-google" aria-label="Wegbeschreibung in Google Maps öffnen">
                 <svg class="map-btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                Maps öffnen
+                Wegbeschreibung
+              </a>
+              <a href="https://g.page/r/CU_EnW35gHmZEAE/review" target="_blank" rel="noopener noreferrer" class="map-btn map-btn-google" aria-label="Bewertung bei Google abgeben">
+                <svg class="map-btn-icon" viewBox="0 0 24 24" fill="#FBBC05" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Bewertung schreiben
               </a>
             </div>
           </div>
@@ -2153,7 +2181,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="#" class="nav-logo" style="margin-bottom:.5rem;" aria-label="Schwarz Autoglas">
-            <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img">
+            <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img" width="128" height="32" loading="lazy">
           </a>
           <p>Professioneller Windschutzscheibenservice –
           zertifiziert, zuverlässig und mit Garantie für alle Fahrzeugklassen.</p>
@@ -2423,6 +2451,12 @@
       },
       {
         "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Friday"],
+        "opens": "00:00",
+        "closes": "00:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Saturday"],
         "opens": "08:00",
         "closes": "23:00"
@@ -2534,7 +2568,8 @@
       "ratingValue": 5.0,
       "bestRating": 5,
       "worstRating": 1,
-      "ratingCount": 3
+      "ratingCount": 3,
+      "reviewCount": 3
     },
     "review": [
       {
@@ -2581,7 +2616,8 @@
       }
     ],
     "sameAs": [
-      "https://g.page/CU_EnW35gHmZEAE"
+      "https://g.page/CU_EnW35gHmZEAE",
+      "https://g.page/r/CU_EnW35gHmZEAE/review"
     ]
   }
   </script>

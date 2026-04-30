@@ -5,17 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Autoglas Tipps & News Rosenheim – Blog | Schwarz Autoglas</title>
   <meta name="description" content="Ratgeber und News rund um Autoglas, Windschutzscheiben und mobilen Service im Raum Rosenheim. Tipps zu Steinschlag, Versicherung & ADAS.">
-  <link id="canonicalLink" rel="canonical" href="https://schwarz-autoglas.de/blog.html">
+  <link rel="canonical" href="https://schwarz-autoglas.de/blog.html">
   <link rel="alternate" hreflang="de" href="https://schwarz-autoglas.de/blog.html">
+  <link rel="alternate" hreflang="x-default" href="https://schwarz-autoglas.de/blog.html">
   <link rel="icon" type="image/png" sizes="32x32" href="/public/images/favicon-32.png">
   <link rel="apple-touch-icon" href="/public/images/apple-touch-icon.png">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Schwarz Autoglas">
-  <meta id="ogTitle" property="og:title" content="Autoglas Tipps & News Rosenheim – Blog | Schwarz Autoglas">
-  <meta id="ogDescription" property="og:description" content="Ratgeber und News rund um Autoglas im Raum Rosenheim. Tipps zu Steinschlag, Versicherung & ADAS-Kalibrierung.">
-  <meta id="ogUrl" property="og:url" content="https://schwarz-autoglas.de/blog.html">
+  <meta property="og:title" content="Autoglas Tipps & News Rosenheim – Blog | Schwarz Autoglas">
+  <meta property="og:description" content="Ratgeber und News rund um Autoglas im Raum Rosenheim. Tipps zu Steinschlag, Versicherung & ADAS-Kalibrierung.">
+  <meta property="og:url" content="https://schwarz-autoglas.de/blog.html">
   <meta property="og:image" content="https://schwarz-autoglas.de/public/images/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -26,10 +27,22 @@
   <meta name="twitter:description" content="Ratgeber und News rund um Autoglas im Raum Rosenheim. Tipps zu Steinschlag, Versicherung & ADAS-Kalibrierung.">
   <meta name="twitter:image" content="https://schwarz-autoglas.de/public/images/og-image.jpg">
 
+  <!-- Static Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Start", "item": "https://schwarz-autoglas.de/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://schwarz-autoglas.de/blog.html" }
+    ]
+  }
+  </script>
+
   <!-- Fonts -->
-  <link rel="preload" href="/public/fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/public/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/public/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/public/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
 
   <style>
     /* ── FONTS ── */
@@ -199,7 +212,7 @@
   <!-- ── NAV ── -->
   <nav id="navbar" aria-label="Hauptnavigation">
     <a href="index.html" class="nav-logo" aria-label="Schwarz Autoglas Startseite">
-      <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img">
+      <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img" width="128" height="32" loading="eager" fetchpriority="high">
     </a>
     <ul class="nav-links" id="navLinks" role="list">
       <li><a href="index.html#services">Leistungen</a></li>
@@ -226,7 +239,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="index.html" class="nav-logo" style="margin-bottom:.5rem;" aria-label="Schwarz Autoglas">
-            <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img">
+            <img src="public/images/logo.png" alt="Schwarz Autoglas" class="nav-logo-img" width="128" height="32" loading="lazy">
           </a>
           <p>Professioneller Windschutzscheibenservice –<br>zertifiziert, zuverlässig und mit Garantie für alle Fahrzeugklassen.</p>
           <p style="font-size:0.8rem;color:var(--gray-600);margin-top:.5rem;line-height:1.6;">
@@ -327,49 +340,6 @@
       return CATEGORY_LABELS[cat] || cat;
     }
 
-    function setMeta(title, description, url) {
-      document.title = title;
-      document.querySelector('meta[name="description"]').content = description;
-      document.getElementById('canonicalLink').href = url;
-      document.getElementById('ogTitle').content = title;
-      document.getElementById('ogDescription').content = description;
-      document.getElementById('ogUrl').content = url;
-    }
-
-    function injectArticleSchema(post) {
-      const existing = document.getElementById('articleSchema');
-      if (existing) existing.remove();
-      const schema = {
-        '@context': 'https://schema.org',
-        '@type': 'Article',
-        headline: post.title,
-        description: post.excerpt,
-        datePublished: post.date,
-        publisher: {
-          '@type': 'LocalBusiness',
-          name: 'Schwarz Autoglas',
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: 'Waldfriedstraße 3a',
-            addressLocality: 'Rosenheim',
-            postalCode: '83024',
-            addressCountry: 'DE'
-          }
-        }
-      };
-      if (post.image) schema.image = 'https://schwarz-autoglas.de/' + post.image;
-      const s = document.createElement('script');
-      s.id = 'articleSchema';
-      s.type = 'application/ld+json';
-      s.textContent = JSON.stringify(schema);
-      document.head.appendChild(s);
-    }
-
-    function removeArticleSchema() {
-      const existing = document.getElementById('articleSchema');
-      if (existing) existing.remove();
-    }
-
     function renderFilters() {
       const categories = ['all', ...new Set(allPosts.map(p => p.category))];
       return categories.map(cat => {
@@ -380,31 +350,26 @@
     }
 
     function renderCardHTML(post) {
+      const href = `/blog/${post.id}.html`;
       const imgHTML = post.image
         ? `<img class="blog-card-img" src="${post.image}" alt="${post.imageAlt || ''}" loading="lazy">`
         : `<div class="blog-card-img-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>`;
       return `
         <article class="blog-card">
-          <a href="blog.html#${post.id}">${imgHTML}</a>
+          <a href="${href}">${imgHTML}</a>
           <div class="blog-card-body">
             <span class="category-badge category-${safeCategoryClass(post.category)}">${getCategoryLabel(post.category)}</span>
-            <h2><a href="blog.html#${post.id}">${post.title}</a></h2>
+            <h2><a href="${href}">${post.title}</a></h2>
             <p class="blog-card-excerpt">${post.excerpt}</p>
             <div class="blog-card-meta">
               <time class="blog-card-date" datetime="${post.date}">${formatDate(post.date)}</time>
-              <a href="blog.html#${post.id}" class="read-more">Weiterlesen →</a>
+              <a href="${href}" class="read-more">Weiterlesen →</a>
             </div>
           </div>
         </article>`;
     }
 
     function renderListing() {
-      removeArticleSchema();
-      setMeta(
-        'Blog | Schwarz Autoglas Rosenheim',
-        'Tipps, Ratgeber und News rund um Autoglas, Windschutzscheiben und mobilen Service im Raum Rosenheim.',
-        'https://schwarz-autoglas.de/blog.html'
-      );
       const filtered = activeCategory === 'all'
         ? allPosts
         : allPosts.filter(p => p.category === activeCategory);
@@ -453,58 +418,18 @@
       }
     }
 
-    function renderPost(postId) {
-      const post = allPosts.find(p => p.id === postId);
-      if (!post) {
-        document.getElementById('blog-main').innerHTML = `
-          <div class="post-wrapper">
-            <a href="blog.html" class="post-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Alle Beiträge</a>
-            <p style="color:var(--gray-400);">Beitrag nicht gefunden.</p>
-          </div>`;
-        return;
-      }
-
-      injectArticleSchema(post);
-      setMeta(
-        `${post.title} | Schwarz Autoglas`,
-        post.excerpt,
-        `https://schwarz-autoglas.de/blog.html#${post.id}`
-      );
-
-      const imgHTML = post.image
-        ? `<img class="post-hero-img" src="${post.image}" alt="${post.imageAlt || ''}">`
-        : '';
-
-      document.getElementById('blog-main').innerHTML = `
-        <div class="post-wrapper">
-          <a href="blog.html" class="post-back">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-            Alle Beiträge
-          </a>
-          <span class="category-badge category-${safeCategoryClass(post.category)}">${getCategoryLabel(post.category)}</span>
-          <h1 class="post-title">${post.title}</h1>
-          <div class="post-meta">
-            <time class="post-date" datetime="${post.date}">${formatDate(post.date)}</time>
-          </div>
-          ${imgHTML}
-          <div class="post-content">${post.content}</div>
-          <div class="post-cta">
-            <h3>Scheibenschaden? Wir helfen sofort.</h3>
-            <p>Kostenloser Kostenvoranschlag — wir kommen mobil zu Ihnen.</p>
-            <a href="index.html#contact" class="btn-primary">Jetzt Termin anfragen</a>
-          </div>
-        </div>`;
-    }
-
     function renderBlog() {
-      const postId = window.location.hash.slice(1);
-      if (postId) {
-        renderPost(postId);
-      } else {
-        visibleCount = POSTS_PER_PAGE;
-        renderListing();
-      }
+      visibleCount = POSTS_PER_PAGE;
+      renderListing();
     }
+
+    // Legacy support: redirect old hash URLs (blog.html#slug) to /blog/slug.html
+    (function redirectLegacyHash() {
+      const hash = window.location.hash.slice(1);
+      if (hash && /^[a-z0-9-]+$/i.test(hash)) {
+        window.location.replace(`/blog/${hash}.html`);
+      }
+    })();
 
     async function init() {
       try {
@@ -513,7 +438,6 @@
         const data = await res.json();
         allPosts = data.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
         renderBlog();
-        window.addEventListener('hashchange', renderBlog);
       } catch (err) {
         document.getElementById('blog-main').innerHTML =
           `<div style="text-align:center;padding:8rem 2rem;color:var(--gray-400);">Beiträge konnten nicht geladen werden.</div>`;

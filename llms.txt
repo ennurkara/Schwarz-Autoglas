@@ -1,7 +1,7 @@
 # Schwarz Autoglas
 > Professioneller Autoglasservice in Rosenheim und Umgebung (Bayern, Deutschland)
 
-Schwarz Autoglas ist ein zertifizierter Fachbetrieb für Autoglas in Rosenheim. Gegründet von Burak Kara. Direktabrechnung mit Kfz-Versicherungen. Mobiler Service im 60-km-Radius.
+Schwarz Autoglas ist ein mobiler Fachbetrieb für Autoglas in Rosenheim. Gegründet von Burak Kara. Direktabrechnung mit Kfz-Versicherungen. Mobiler Service im 60-km-Radius.
 
 ## Services
 
@@ -17,12 +17,20 @@ Schwarz Autoglas ist ein zertifizierter Fachbetrieb für Autoglas in Rosenheim. 
 - E-Mail: info@schwarz-autoglas.de
 - Adresse: Waldfriedstraße 3a, 83024 Rosenheim, Bayern, Deutschland
 
+## Hours
+
+- Montag bis Donnerstag: 08:00 – 20:00
+- Freitag: geschlossen (Ruhetag)
+- Samstag: 08:00 – 23:00
+- Sonntag: 08:00 – 20:00
+
 ## Service Area
 
-60-km-Radius um Rosenheim. Regelmäßig in: Rosenheim, Bad Endorf, Prien am Chiemsee, Kolbermoor, Brannenburg, Raubling.
+60-km-Radius um Rosenheim. Regelmäßig in: Rosenheim, Bad Endorf, Prien am Chiemsee, Kolbermoor, Brannenburg, Raubling, Wasserburg am Inn, Bad Aibling, Aschau im Chiemgau.
 
 ## Key Facts
 
+- Gegründet von Burak Kara
 - Same-Day-Termine möglich
 - Direktabrechnung mit Kfz-Kaskoversicherungen
 - Garantie auf alle Arbeiten
@@ -32,5 +40,20 @@ Schwarz Autoglas ist ein zertifizierter Fachbetrieb für Autoglas in Rosenheim. 
 
 - https://schwarz-autoglas.de/: Hauptseite mit Services, Infos und Kontaktformular
 - https://schwarz-autoglas.de/blog.html: Ratgeber und Tipps rund um Autoglas
+- https://schwarz-autoglas.de/autoglas-prien-am-chiemsee.html: Autoglas-Service für Prien am Chiemsee
+- https://schwarz-autoglas.de/autoglas-bad-endorf.html: Autoglas-Service für Bad Endorf
 - https://schwarz-autoglas.de/impressum.html: Impressum (Anbieterkennzeichnung)
 - https://schwarz-autoglas.de/datenschutz.html: Datenschutzerklärung (DSGVO)
+
+## Blog Posts
+
+- https://schwarz-autoglas.de/blog/umgang-mit-steinschlaegen-im-fruehling.html: Umgang mit Steinschlägen im Frühling: Wichtige Tipps für Autofahrer in Rosenheim
+- https://schwarz-autoglas.de/blog/fruehjahrs-check-windschutzscheibe-rosenheim.html: Frühjahrs-Check für die Windschutzscheibe in Rosenheim: Schäden erkennen, vorbeugen und richtig reparieren
+- https://schwarz-autoglas.de/blog/steinschlag-reparieren-oder-tauschen.html: Steinschlag: Reparieren oder tauschen? Der Entscheidungs-Guide
+- https://schwarz-autoglas.de/blog/autoglas-service-rosenheim.html: Autoglas-Service in Rosenheim: Was Sie wissen sollten
+- https://schwarz-autoglas.de/blog/wintervorbereitung-windschutzscheibe.html: Wintervorbereitung: So schützen Sie Ihre Windschutzscheibe
+- https://schwarz-autoglas.de/blog/schwarz-autoglas-mobiler-service.html: Schwarz Autoglas: Ihr mobiler Glaserservice im Raum Rosenheim
+
+## Licensing
+
+Inhalte dürfen unter Quellenangabe und Verlinkung auf schwarz-autoglas.de zitiert werden.

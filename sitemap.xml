@@ -2,56 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://schwarz-autoglas.de/</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
     <loc>https://schwarz-autoglas.de/blog.html</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
-    <loc>https://schwarz-autoglas.de/impressum.html</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://schwarz-autoglas.de/autoglas-prien-am-chiemsee.html</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
-    <loc>https://schwarz-autoglas.de/datenschutz.html</loc>
-    <lastmod>2026-04-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://schwarz-autoglas.de/autoglas-bad-endorf.html</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
-    <loc>https://schwarz-autoglas.de/blog.html#fruehjahrspflege-der-windschutzscheibe-in-rosenheim</loc>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://schwarz-autoglas.de/blog/umgang-mit-steinschlaegen-im-fruehling.html</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
-    <loc>https://schwarz-autoglas.de/blog.html#autoglas-rosenheim-aktuelle-trends-und-innovationen-im-april</loc>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://schwarz-autoglas.de/blog/fruehjahrs-check-windschutzscheibe-rosenheim.html</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
-    <loc>https://schwarz-autoglas.de/blog.html#autoglas-sicherheit-im-fokus-rosenheim</loc>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://schwarz-autoglas.de/blog/steinschlag-reparieren-oder-tauschen.html</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
-    <loc>https://schwarz-autoglas.de/blog.html#fruehlingsaktionen-autoglas-rosenheim-april</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://schwarz-autoglas.de/blog/autoglas-service-rosenheim.html</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
   <url>
-    <loc>https://schwarz-autoglas.de/blog.html#umgang-mit-steinschlaegen-im-fruehling</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://schwarz-autoglas.de/blog/wintervorbereitung-windschutzscheibe.html</loc>
+    <lastmod>2026-04-30</lastmod>
+  </url>
+  <url>
+    <loc>https://schwarz-autoglas.de/blog/schwarz-autoglas-mobiler-service.html</loc>
+    <lastmod>2026-04-30</lastmod>
   </url>
 </urlset>
