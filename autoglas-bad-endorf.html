@@ -140,6 +140,13 @@
     .footer-legal { display:flex; gap:1.5rem; }
     .footer-legal a { color:var(--gray-500); font-size:.8rem; }
     @media (max-width:768px) { .footer-bottom { flex-direction:column; gap:.75rem; text-align:center; } }
+    @media (max-width:768px) {
+      .nav-burger { padding:10px; min-width:44px; min-height:44px; box-sizing:border-box; align-items:center; }
+      .nav-logo { padding:6px 0; min-height:44px; align-items:center; }
+      .btn-primary, .btn-secondary { min-height:48px; }
+      .btn-secondary { margin-left:0; margin-top:.75rem; display:inline-block; }
+      .breadcrumbs a { min-height:24px; }
+    }
     @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
   </style>
 </head>

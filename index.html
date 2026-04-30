@@ -1615,6 +1615,19 @@
     @media (max-width: 900px) { .aktuelles-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 580px) { .aktuelles-grid { grid-template-columns: 1fr; } }
 
+    /* ── MOBILE TAP TARGETS (WCAG 2.5.5 — min 44×44px) ── */
+    @media (max-width: 768px) {
+      .nav-burger { padding: 10px; min-width: 44px; min-height: 44px; box-sizing: border-box; align-items: center; }
+      .nav-logo { padding: 6px 0; min-height: 44px; align-items: center; }
+      .map-consent-btn { padding: 0.85rem 1.6rem; min-height: 44px; }
+      .aktuelles-read-more { display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 0; }
+      .contact-item-value { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 0; }
+      a[href^="tel:"], a[href^="mailto:"] { display: inline-flex; align-items: center; min-height: 44px; }
+      .map-btn { padding: 0.85rem 1.25rem; min-height: 44px; }
+      .form-submit button { min-height: 48px; }
+      input, select, textarea { min-height: 44px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }

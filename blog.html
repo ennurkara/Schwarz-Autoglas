@@ -196,6 +196,17 @@
       .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
     }
 
+    /* ── MOBILE TAP TARGETS (WCAG 2.5.5) ── */
+    @media (max-width: 768px) {
+      .nav-burger { padding: 10px; min-width: 44px; min-height: 44px; box-sizing: border-box; align-items: center; }
+      .nav-logo { padding: 6px 0; min-height: 44px; align-items: center; }
+      .filter-btn { padding: 0.65rem 1rem; min-height: 44px; }
+      .read-more { display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 0; }
+      .post-back { min-height: 44px; padding: .5rem 0; }
+      .blog-card-meta { gap: .5rem; }
+      .load-more-btn { padding: 0.9rem 2rem; min-height: 48px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }

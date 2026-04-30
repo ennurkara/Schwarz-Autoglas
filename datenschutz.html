@@ -61,6 +61,9 @@
     a:hover { text-decoration: underline; }
     .back { display: inline-flex; align-items: center; gap: .4rem; color: #888; font-size: .85rem; margin-bottom: 3rem; text-decoration: none; }
     .back:hover { color: #fff; }
+    @media (max-width: 768px) {
+      .back { min-height: 44px; padding: .5rem 0; }
+    }
     @media (max-width: 480px) {
       body { padding: 5rem 1.25rem 3rem; }
     }
