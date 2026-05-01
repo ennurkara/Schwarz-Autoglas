@@ -722,12 +722,25 @@
       position: relative;
       overflow: hidden;
       border-radius: 8px;
+      touch-action: pan-y;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .reviews-track.dragging {
+      cursor: grabbing;
     }
 
     .reviews-viewport {
       display: flex;
       transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
       will-change: transform;
+      touch-action: pan-y;
+    }
+
+    .reviews-viewport.dragging {
+      transition: none;
     }
 
     .reviews-viewport.no-anim {
@@ -893,7 +906,13 @@
     /* On mobile: 14 dots don't fit. Hide dots, show counter. Arrows + swipe + keyboard remain. */
     @media (max-width: 640px) {
       .reviews-dots { display: none; }
-      .reviews-counter { display: block; }
+      .reviews-counter { display: block; min-width: auto; }
+      .reviews-nav {
+        justify-content: center;
+        gap: 1.25rem;
+        margin-top: 1.25rem;
+      }
+      .reviews-arrows { gap: 0.75rem; }
     }
 
     .reviews-dot {
@@ -1801,6 +1820,8 @@
       .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
       section { padding: 4rem 1.5rem; }
+      .testimonials, section.contact { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .review-slide { padding: 0 .25rem; }
 
       .why-inner { grid-template-columns: 1fr; gap: 3rem; }
       .why-badge { bottom: -1rem; right: 0; }
@@ -2834,24 +2855,56 @@
         else if (e.key === 'End')       { stopAutoplay(); go(reviews.length - 1); }
       });
 
-      // Touch swipe
-      let touchStartX = null;
-      let touchStartTime = 0;
-      viewport.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartTime = Date.now();
-      }, { passive: true });
-      viewport.addEventListener('touchend', (e) => {
-        if (touchStartX === null) return;
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        const dt = Date.now() - touchStartTime;
-        const SWIPE_THRESHOLD = 40;
-        if (Math.abs(dx) > SWIPE_THRESHOLD && dt < 800) {
-          stopAutoplay();
+      // Pointer-based drag/swipe (covers touch, mouse, pen)
+      const track = root.querySelector('.reviews-track');
+      let dragStart = null;
+      let dragStartTime = 0;
+      let dragId = null;
+      const SWIPE_THRESHOLD = 40;
+      const DRAG_LIVE_FACTOR = 0.6; // damping for live drag preview
+
+      function onPointerDown(e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        dragId = e.pointerId;
+        dragStart = e.clientX;
+        dragStartTime = Date.now();
+        viewport.classList.add('dragging');
+        track.classList.add('dragging');
+        track.setPointerCapture(e.pointerId);
+        stopAutoplay();
+      }
+      function onPointerMove(e) {
+        if (dragId === null || e.pointerId !== dragId) return;
+        const dx = (e.clientX - dragStart) * DRAG_LIVE_FACTOR;
+        viewport.style.transform = `translateX(calc(-${current * 100}% + ${dx}px))`;
+      }
+      function onPointerEnd(e) {
+        if (dragId === null || e.pointerId !== dragId) return;
+        const dx = e.clientX - dragStart;
+        const dt = Date.now() - dragStartTime;
+        viewport.classList.remove('dragging');
+        track.classList.remove('dragging');
+        try { track.releasePointerCapture(e.pointerId); } catch {}
+        dragId = null;
+        const fast = dt < 500 && Math.abs(dx) > 20;
+        if (fast || Math.abs(dx) > SWIPE_THRESHOLD) {
           go(dx < 0 ? current + 1 : current - 1);
+        } else {
+          go(current); // snap back
         }
-        touchStartX = null;
-      }, { passive: true });
+        // Resume autoplay after a short pause
+        setTimeout(startAutoplay, 4000);
+      }
+
+      track.addEventListener('pointerdown', onPointerDown);
+      track.addEventListener('pointermove', onPointerMove);
+      track.addEventListener('pointerup', onPointerEnd);
+      track.addEventListener('pointercancel', onPointerEnd);
+      track.addEventListener('pointerleave', (e) => {
+        if (dragId !== null && e.pointerId === dragId) onPointerEnd(e);
+      });
+      // Prevent native drag image when grabbing review images
+      track.addEventListener('dragstart', (e) => e.preventDefault());
 
       function startAutoplay() {
         if (prefersReducedMotion) return;
