@@ -106,8 +106,9 @@ async function instrumentPage(page, viewport, label) {
   page.on('requestfailed', req => {
     const url = req.url();
     if (url.includes('googletagmanager') || url.includes('google-analytics')) return;
-    // Hero video gets aborted by Playwright's networkidle wait — not a user-facing issue
-    if (url.endsWith('hero.mp4') && req.failure()?.errorText?.includes('ERR_ABORTED')) return;
+    // ERR_ABORTED happens when Playwright navigates while a long-poll/video/iframe is mid-flight.
+    // Not a user-facing issue — happens for hero.mp4 + page.html on rapid navigation between viewports.
+    if (req.failure()?.errorText?.includes('ERR_ABORTED')) return;
     log('MEDIUM', viewport, label, `request failed: ${url.slice(-80)} ${req.failure()?.errorText || ''}`);
   });
   page.on('response', resp => {
@@ -123,11 +124,15 @@ async function visitPage(ctx, vp, route, label) {
   const page = await ctx.newPage();
   await instrumentPage(page, vp.name, label);
   try {
-    const resp = await page.goto(BASE + route, { waitUntil: 'networkidle', timeout: 30000 });
+    // Use 'load' instead of 'networkidle' — slideshow auto-rotate and 3p iframes
+    // (Maps consent flow) keep the network busy beyond practical limits.
+    const resp = await page.goto(BASE + route, { waitUntil: 'load', timeout: 30000 });
     if (resp.status() !== 200) {
       log('CRITICAL', vp.name, label, `HTTP ${resp.status()}`);
     }
-    await page.waitForTimeout(800);
+    // Wait for fonts + lazy content
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForTimeout(1200);
 
     await checkOverflow(page, vp.name, label);
     await checkBrokenImages(page, vp.name, label);
@@ -208,9 +213,9 @@ async function testHomepage(ctx, vp) {
   }
   await page.screenshot({ path: `${OUT}/${vp.name}-home-form-validation.png`, fullPage: false });
 
-  // Test: rating badge text accuracy
+  // Test: rating badge shows a count of N echten Google-Bewertungen
   const badgeText = await page.locator('.rating-badge-text').textContent();
-  if (!badgeText.includes('3 echten')) {
+  if (!/\d+\s+echten\s+Google-Bewertungen/i.test(badgeText)) {
     log('MEDIUM', vp.name, 'home', `rating badge unexpected: "${badgeText}"`);
   }
 

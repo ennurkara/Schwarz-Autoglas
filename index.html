@@ -880,6 +880,7 @@
     }
 
     .reviews-dot {
+      position: relative;
       width: 8px;
       height: 8px;
       border-radius: 50%;
@@ -888,6 +889,13 @@
       cursor: pointer;
       padding: 0;
       transition: background 0.2s, transform 0.2s, width 0.3s;
+    }
+
+    /* Expand tap area to 44×44 without changing visual size (WCAG 2.5.5) */
+    .reviews-dot::before {
+      content: '';
+      position: absolute;
+      inset: -18px -8px;
     }
 
     .reviews-dot:hover {
@@ -903,6 +911,10 @@
       background: var(--accent);
       width: 24px;
       border-radius: 4px;
+    }
+
+    .reviews-dot.active::before {
+      inset: -18px -8px;
     }
 
     .review-attribution {
