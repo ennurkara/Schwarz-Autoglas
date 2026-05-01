@@ -879,6 +879,23 @@
       align-items: center;
     }
 
+    .reviews-counter {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--gray-300);
+      font-weight: 600;
+      min-width: 44px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .reviews-counter span { color: var(--accent); }
+
+    /* On mobile: 14 dots don't fit. Hide dots, show counter. Arrows + swipe + keyboard remain. */
+    @media (max-width: 640px) {
+      .reviews-dots { display: none; }
+      .reviews-counter { display: block; }
+    }
+
     .reviews-dot {
       position: relative;
       width: 8px;
@@ -2765,6 +2782,9 @@
           <div class="reviews-dots" role="tablist" aria-label="Bewertung wählen">
             ${reviews.map((_, i) => `<button class="reviews-dot${i === 0 ? ' active' : ''}" type="button" role="tab" aria-label="Bewertung ${i + 1} anzeigen" aria-selected="${i === 0}" data-index="${i}"></button>`).join('')}
           </div>
+          <div class="reviews-counter" aria-hidden="true">
+            <span id="reviewsCounterCurrent">1</span> / ${total}
+          </div>
         </div>`;
 
       // Hide noscript legacy grid (it shouldn't render at all if JS runs, but safety)
@@ -2777,6 +2797,7 @@
       const dots = Array.from(root.querySelectorAll('.reviews-dot'));
       const prevBtn = root.querySelector('[data-action="prev"]');
       const nextBtn = root.querySelector('[data-action="next"]');
+      const counterCurrent = root.querySelector('#reviewsCounterCurrent');
 
       let current = 0;
       let autoplayId = null;
@@ -2794,6 +2815,7 @@
           d.classList.toggle('active', active);
           d.setAttribute('aria-selected', String(active));
         });
+        if (counterCurrent) counterCurrent.textContent = String(current + 1);
       }
 
       prevBtn.addEventListener('click', () => { stopAutoplay(); go(current - 1); });
